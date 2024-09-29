@@ -1,4 +1,4 @@
-using Ecomst.Models;
+using Ecomst.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
