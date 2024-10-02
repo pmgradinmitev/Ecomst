@@ -18,7 +18,8 @@ namespace Ecomst.Repositories
             try
             {
                 _context.Categories.Add(category);
-                return true;
+                int stateNumber = _context.SaveChanges();
+                return stateNumber > 0;
             }
             catch
             {
@@ -29,6 +30,15 @@ namespace Ecomst.Repositories
         public List<Category> ToList()
         {
             return _context.Categories.ToList();
+        }
+
+        public Category? FindById(int? id)
+        {
+            if (id == null || id == 0)
+                return null;
+
+            Category? category = _context.Categories.Find(id);
+            return category;
         }
     }
 }

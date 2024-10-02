@@ -18,5 +18,15 @@ namespace Ecomst.Services
         {
             return _repository.ToList();
         }
+
+        public bool AddCategory(Category category)
+        {
+            return _repository.Add(category);
+        }
+
+        public Category? GetCategoryById(int? id) 
+        {
+            return _repository.FindById(id);
+        }
     }
 }
