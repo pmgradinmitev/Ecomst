@@ -8,5 +8,7 @@ namespace Ecomst.Repositories.IRepositories
         List<Category> ToList();
 
         Category? FindById(int? id);
+
+        public bool Update(Category category);
     }
 }

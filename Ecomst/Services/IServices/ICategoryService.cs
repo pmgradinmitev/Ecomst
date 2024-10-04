@@ -7,5 +7,6 @@ namespace Ecomst.Services.IServices
         public List<Category> GetCategoryList();
         bool AddCategory(Category category);
         Category? GetCategoryById(int? id);
+        public bool UpdateCategory(Category category);
     }
 }

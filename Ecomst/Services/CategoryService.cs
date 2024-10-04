@@ -21,12 +21,31 @@ namespace Ecomst.Services
 
         public bool AddCategory(Category category)
         {
-            return _repository.Add(category);
+            try
+            {
+                return _repository.Add(category);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public Category? GetCategoryById(int? id) 
         {
             return _repository.FindById(id);
+        }
+
+        public bool UpdateCategory(Category category)
+        {
+            try
+            {
+                return _repository.Update(category);
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

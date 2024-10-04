@@ -51,6 +51,19 @@ namespace Ecomst.Controllers
                 }
                 TempData["error"] = "Unable to create category!";
             }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    viewModel.PopulateCategory(category);
+                    if (_categoryService.UpdateCategory(category))
+                    {
+                        TempData["success"] = "Category was updated successfully!";
+                        return RedirectToAction("Index");
+                    }
+                    TempData["error"] = "Unable to update category!";
+                }
+            }
             return View(viewModel);
         }
     }
