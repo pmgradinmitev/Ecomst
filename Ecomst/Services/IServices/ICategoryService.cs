@@ -8,5 +8,6 @@ namespace Ecomst.Services.IServices
         bool AddCategory(Category category);
         Category? GetCategoryById(int? id);
         public bool UpdateCategory(Category category);
+        public bool DeleteCategory(int id);
     }
 }

@@ -10,5 +10,6 @@ namespace Ecomst.Repositories.IRepositories
         Category? FindById(int? id);
 
         public bool Update(Category category);
+        public bool Delete(int id);
     }
 }

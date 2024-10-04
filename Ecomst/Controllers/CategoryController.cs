@@ -66,5 +66,20 @@ namespace Ecomst.Controllers
             }
             return View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            if (_categoryService.DeleteCategory(id))
+            {
+                TempData["success"] = "Category was deleted successfully";
+            }
+            else
+            {
+                TempData["error"] = "Unable to delete category";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

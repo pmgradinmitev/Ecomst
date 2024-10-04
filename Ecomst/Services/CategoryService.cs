@@ -47,5 +47,9 @@ namespace Ecomst.Services
                 return false;
             }
         }
+
+        public bool DeleteCategory(int id) {
+            return _repository.Delete(id);
+        }
     }
 }
