@@ -1,4 +1,5 @@
 ﻿using Ecomst.Entities;
+using Ecomst.Helpers;
 
 namespace Ecomst.Services.IServices
 {
@@ -9,5 +10,6 @@ namespace Ecomst.Services.IServices
         Category? GetCategoryById(int? id);
         public bool UpdateCategory(Category category);
         public bool DeleteCategory(int id);
+        public void SetModelStateDictionary(IValidationDictionary modelState);
     }
 }

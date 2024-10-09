@@ -2,18 +2,36 @@
 using Ecomst.Services.IServices;
 using Ecomst.Repositories.IRepositories;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Ecomst.Helpers;
 
 namespace Ecomst.Services
 {
     public class CategoryService : ICategoryService
     {
-        private ModelStateDictionary? _modelState;
+        private IValidationDictionary? _modelState;
         private ICategoryRepository _repository;
 
         public CategoryService(ICategoryRepository repository)
         {
             _repository = repository;
         }
+
+        public void SetModelStateDictionary(IValidationDictionary modelState)
+        {
+            _modelState = modelState;
+        }
+
+        public bool ValidateCategory(Category category)
+        {
+            if (_modelState == null)
+                throw new ArgumentNullException(nameof(_modelState));
+
+            if (category.Name.ToLower() == "test")
+                _modelState.AddError("Name", "\"Test\" is an invalid value!");
+
+            return _modelState.IsValid;
+        }
+
         public List<Category> GetCategoryList()
         {
             return _repository.ToList();
@@ -23,6 +41,8 @@ namespace Ecomst.Services
         {
             try
             {
+                if (!ValidateCategory(category))
+                    return false;
                 return _repository.Add(category);
             }
             catch
@@ -40,6 +60,8 @@ namespace Ecomst.Services
         {
             try
             {
+                if (!ValidateCategory(category))
+                    return false;
                 return _repository.Update(category);
             }
             catch

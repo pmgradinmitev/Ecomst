@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ecomst.Services.IServices;
 using Ecomst.ViewModels.Category;
+using Ecomst.Helpers;
 
 namespace Ecomst.Controllers
 {
@@ -19,22 +20,6 @@ namespace Ecomst.Controllers
             return View(categoryList);
         }
 
-        //public IActionResult Upsert(int? id)
-        //{
-        //    CategoryViewModel viewModel = new CategoryViewModel();
-        //    if(id == null)
-        //        return View(viewModel);
-
-        //    Category? category = _categoryService.GetCategoryById(id);
-        //    if (category == null)
-        //    {
-        //        TempData["error"] = "Category with id " + id + " not found!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    viewModel.PopulateFromCategory(category);
-        //    return View(viewModel);
-        //}
-
         public IActionResult Create()
         {
             CategoryViewModel viewModel = new CategoryViewModel();
@@ -45,6 +30,7 @@ namespace Ecomst.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CategoryViewModel viewModel)
         {
+            _categoryService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
             if (ModelState.IsValid)
             {
                 Category category = new Category();
@@ -76,6 +62,7 @@ namespace Ecomst.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update(CategoryViewModel viewModel)
         {
+            _categoryService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
             if (ModelState.IsValid)
             {
                 Category category = new Category();
@@ -90,12 +77,28 @@ namespace Ecomst.Controllers
             return View(viewModel);
         }
 
+        //public IActionResult Upsert(int? id)
+        //{
+        //    CategoryViewModel viewModel = new CategoryViewModel();
+        //    if(id == null)
+        //        return View(viewModel);
+
+        //    Category? category = _categoryService.GetCategoryById(id);
+        //    if (category == null)
+        //    {
+        //        TempData["error"] = "Category with id " + id + " not found!";
+        //        return RedirectToAction("Index");
+        //    }
+        //    viewModel.PopulateFromCategory(category);
+        //    return View(viewModel);
+        //}
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public IActionResult Upsert(CategoryViewModel viewModel)
         //{
         //    Category category = new Category();
-            
+
         //    if (viewModel.Id == null && ModelState.IsValid)
         //    {
         //        viewModel.PopulateCategory(category);
