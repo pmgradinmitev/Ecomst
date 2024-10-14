@@ -31,17 +31,19 @@ namespace Ecomst.Controllers
         public IActionResult Create(CategoryViewModel viewModel)
         {
             _categoryService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
-            if (ModelState.IsValid)
+           
+            Category category = new Category();
+            viewModel.PopulateCategory(category);
+            if (_categoryService.AddCategory(category))
             {
-                Category category = new Category();
-                viewModel.PopulateCategory(category);
-                if (_categoryService.AddCategory(category))
-                {
-                    TempData["success"] = "Category was created successfully!";
-                    return RedirectToAction("Index");
-                }
+                TempData["success"] = $"Category {category.Name} was created successfully!";
+                return RedirectToAction("Index");
+            }
+            else if (ModelState.IsValid)
+            {
                 TempData["error"] = "Unable to create category!";
             }
+            
             return View(viewModel);
         }
 
@@ -63,17 +65,19 @@ namespace Ecomst.Controllers
         public IActionResult Update(CategoryViewModel viewModel)
         {
             _categoryService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
-            if (ModelState.IsValid)
+           
+            Category category = new Category();
+            viewModel.PopulateCategory(category);
+            if (_categoryService.UpdateCategory(category))
             {
-                Category category = new Category();
-                viewModel.PopulateCategory(category);
-                if (_categoryService.UpdateCategory(category))
-                {
-                    TempData["success"] = "Category was updated successfully!";
-                    return RedirectToAction("Index");
-                }
+                TempData["success"] = $"Category {category.Name} was updated successfully!";
+                return RedirectToAction("Index");
+            }
+            else if (ModelState.IsValid)
+            {
                 TempData["error"] = "Unable to update category!";
             }
+            
             return View(viewModel);
         }
 

@@ -3,6 +3,7 @@ using Ecomst.Services.IServices;
 using Ecomst.Repositories.IRepositories;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Ecomst.Helpers;
+using System.Text.RegularExpressions;
 
 namespace Ecomst.Services
 {
@@ -27,7 +28,17 @@ namespace Ecomst.Services
                 throw new ArgumentNullException(nameof(_modelState));
 
             if (category.Name.ToLower() == "test")
-                _modelState.AddError("Name", "\"Test\" is an invalid value!");
+                _modelState.AddError("", "\"Test\" is an invalid value!");
+
+            Category? category1 = _repository.FindByName(category.Name);
+            if (category1 != null)
+                _modelState.AddError("", $"Category {category1.Name} already exists.");
+
+            Regex regex = new Regex(@"\d+");
+            Match match = regex.Match(category.Name);
+            if (match.Success)
+                _modelState.AddError("", "Category name can not have a number.");
+
 
             return _modelState.IsValid;
         }

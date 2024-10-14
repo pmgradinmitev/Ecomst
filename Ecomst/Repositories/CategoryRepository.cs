@@ -72,5 +72,12 @@ namespace Ecomst.Repositories
                 return false;
             }
         }
+
+        public Category? FindByName(string? name)
+        {
+            if (String.IsNullOrEmpty(name))
+                return null;
+            return _context.Categories.Where(s => s.Name == name).FirstOrDefault();
+        }
     }
 }
