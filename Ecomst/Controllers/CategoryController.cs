@@ -66,7 +66,12 @@ namespace Ecomst.Controllers
         {
             _categoryService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
            
-            Category category = new Category();
+            Category? category = _categoryService.GetCategoryById(viewModel.Id);
+            if (category == null)
+            {
+                TempData["error"] = "Unable to find category!";
+                return RedirectToAction("Index");
+            }
             viewModel.PopulateCategory(category);
             if (_categoryService.UpdateCategory(category))
             {

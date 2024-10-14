@@ -32,8 +32,11 @@ namespace Ecomst.Services
 
             Category? category1 = _repository.FindByName(category.Name);
             if (category1 != null)
-                _modelState.AddError("", $"Category {category1.Name} already exists.");
-
+            {
+                if(category.Id != category1.Id)
+                    _modelState.AddError("", $"Category {category1.Name} already exists.");
+            }
+                
             Regex regex = new Regex(@"\d+");
             Match match = regex.Match(category.Name);
             if (match.Success)
