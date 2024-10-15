@@ -1,35 +1,17 @@
 ﻿@model List<Category>
 <a asp-controller="Category" asp-action="Create" class="btn btn-primary mx-2">Add Category</a>
 <h1>Category List</h1>
-<table class="table table-bordered table-striped">
+<table id="category-table" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Category Name</th>
             <th>Display Order</th>
-            <th style="width: 25%"></th>
+            <th></th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var obj in Model)
-        {
-            <tr>
-                <td>@obj.Name</td>
-                <td>@obj.DisplayOrder</td>
-                <td>
-                    <div class="w-100 btn-group" role="group">
-                        <a asp-controller="Category" asp-action="Update" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </a>
-                        <form method="post" action="@Url.Action("Delete", "Category")" onsubmit="return confirm('Do you really want to delete category @obj.Name');">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="@nameof(obj.Id)" value="@obj.Id" />
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi-trash"></i>Delete
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
 </table>
+
+@section Scripts {
+    <script src="~/js/datatables/datatables.min.js"></script>
+    <script src="~/js/category/index.js"></script>
+}
