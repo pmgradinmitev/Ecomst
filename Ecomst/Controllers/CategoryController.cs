@@ -3,15 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Ecomst.Services.IServices;
 using Ecomst.ViewModels.Category;
 using Ecomst.Helpers;
+using System.Web;
 
 namespace Ecomst.Controllers
 {
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;
-        public CategoryController(ICategoryService categoryService)
+        private IHttpContextAccessor _httpContextAccessor;
+        public CategoryController(ICategoryService categoryService, IHttpContextAccessor httpContextAccessor)
         {
             _categoryService = categoryService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index()
@@ -102,8 +105,19 @@ namespace Ecomst.Controllers
 
         public IActionResult Get()
         {
+            PrintUrlQueryParamsInConsole();
             List<Category> categoryList = _categoryService.GetCategoryList();
             return Json(new { data = categoryList });
+        }
+
+        private void PrintUrlQueryParamsInConsole()
+        {
+            string urlQuery = _httpContextAccessor.HttpContext.Request.QueryString.Value;
+            var paramsCollection = HttpUtility.ParseQueryString(urlQuery);
+            foreach(var key in paramsCollection.AllKeys)
+            {
+                Console.WriteLine($"Key: {key} => Value: {paramsCollection[key]}");
+            }
         }
     }
 }
