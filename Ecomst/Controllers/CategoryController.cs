@@ -103,9 +103,32 @@ namespace Ecomst.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Get()
+        public IActionResult Get(int draw, int start, int length)
         {
             PrintUrlQueryParamsInConsole();
+            string urlQuery = _httpContextAccessor.HttpContext.Request.QueryString.Value;
+            var paramsCollection = HttpUtility.ParseQueryString(urlQuery);
+
+            //Get search params
+            string? name = paramsCollection["columns[0][search][value]"];
+            string? defaultOrder = paramsCollection["columns[1][search][value]"];
+
+            //Get sort
+            string? sortColumnIndex = paramsCollection["order[0][column]"];
+            string? sortColumnName = paramsCollection["columns[" + sortColumnIndex + "][data]"];
+            string? sortDirection = paramsCollection["order[0][dir]"];
+            string sortColumn = "";
+
+            Category category = new Category();
+            category.Name = name;
+            if (!String.IsNullOrEmpty(defaultOrder))
+                category.DisplayOrder = int.Parse(defaultOrder);
+
+            if (sortDirection == "asc")
+                sortColumn = sortColumnName;
+            else
+                sortColumn = $"-{sortColumnName}";
+
             List<Category> categoryList = _categoryService.GetCategoryList();
             return Json(new { data = categoryList });
         }
