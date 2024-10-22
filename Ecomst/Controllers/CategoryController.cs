@@ -134,8 +134,8 @@ namespace Ecomst.Controllers
 
             return Ok(new { 
                 draw = draw,
-                recordsTotal = result.RowCount,
-                recordsFiltered = result.RowCount,
+                recordsTotal = result.RecordsTotal,
+                recordsFiltered = result.RecordsFiltered,
                 data = result.Data
             });
         }
