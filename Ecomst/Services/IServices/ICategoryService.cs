@@ -1,4 +1,5 @@
-﻿using Ecomst.Entities;
+﻿using Ecomst.DTO;
+using Ecomst.Entities;
 using Ecomst.Helpers;
 
 namespace Ecomst.Services.IServices
@@ -11,5 +12,6 @@ namespace Ecomst.Services.IServices
         public bool UpdateCategory(Category category);
         public bool DeleteCategory(int id);
         public void SetModelStateDictionary(IValidationDictionary modelState);
+        public SearchResult<Category> Search(Category category, string sortColumn, int start, int length);
     }
 }

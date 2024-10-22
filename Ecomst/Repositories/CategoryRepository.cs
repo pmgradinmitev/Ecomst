@@ -1,4 +1,5 @@
 ﻿using Ecomst.Data;
+using Ecomst.DTO;
 using Ecomst.Entities;
 using Ecomst.Repositories.IRepositories;
 
@@ -7,6 +8,8 @@ namespace Ecomst.Repositories
     public class CategoryRepository : ICategoryRepository
     {
         private readonly ApplicationDbContext _context;
+
+        private int RowCount {  get; set; }
 
         public CategoryRepository(ApplicationDbContext context)
         {
@@ -78,6 +81,49 @@ namespace Ecomst.Repositories
             if (String.IsNullOrEmpty(name))
                 return null;
             return _context.Categories.Where(s => s.Name == name).FirstOrDefault();
+        }
+
+        public SearchResult<Category> GetPageData(Category category, string sortColumn, int start, int length)
+        {
+            IQueryable<Category> query = _context.Set<Category>();
+            query = Search(category, query);
+            query = OrderBy(sortColumn, query);
+            query = WithPagination(start, length, query);
+
+            SearchResult<Category> result = new SearchResult<Category>();
+            result.RowCount = RowCount;
+            result.Data = query.ToList();
+            return result;
+        }
+
+        private IQueryable<Category> OrderBy(string value, IQueryable<Category> query)
+        {
+            switch (value)
+            {
+                case "-name":
+                    return query.OrderByDescending(s => s.Name);
+                case "-displayOrder":
+                    return query.OrderByDescending(s => s.DisplayOrder);
+                case "displayOrder":
+                    return query.OrderBy(s => s.DisplayOrder);
+                default:
+                    return query.OrderBy(s => s.Name);
+            }
+        }
+
+        private IQueryable<Category> WithPagination(int start, int length, IQueryable<Category> query)
+        {
+            RowCount = query.Count();
+            return query.Skip(start).Take(length);
+        }
+
+        private IQueryable<Category> Search(Category category, IQueryable<Category> query)
+        {
+            if (!String.IsNullOrEmpty(category.Name))
+                query = query.Where(s=>s.Name!.ToUpper().Contains(category.Name.ToUpper()));
+            if (category.DisplayOrder != 0)
+                query = query.Where(s => s.DisplayOrder == category.DisplayOrder);
+            return query;
         }
     }
 }

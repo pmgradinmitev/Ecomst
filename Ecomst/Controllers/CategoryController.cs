@@ -4,6 +4,7 @@ using Ecomst.Services.IServices;
 using Ecomst.ViewModels.Category;
 using Ecomst.Helpers;
 using System.Web;
+using Ecomst.DTO;
 
 namespace Ecomst.Controllers
 {
@@ -129,8 +130,14 @@ namespace Ecomst.Controllers
             else
                 sortColumn = $"-{sortColumnName}";
 
-            List<Category> categoryList = _categoryService.GetCategoryList();
-            return Json(new { data = categoryList });
+            SearchResult<Category> result = _categoryService.Search(category, sortColumn, start, length);
+
+            return Ok(new { 
+                draw = draw,
+                recordsTotal = result.RowCount,
+                recordsFiltered = result.RowCount,
+                data = result.Data
+            });
         }
 
         private void PrintUrlQueryParamsInConsole()

@@ -1,4 +1,5 @@
-﻿using Ecomst.Entities;
+﻿using Ecomst.DTO;
+using Ecomst.Entities;
 
 namespace Ecomst.Repositories.IRepositories
 {
@@ -6,11 +7,10 @@ namespace Ecomst.Repositories.IRepositories
     {
         bool Add(Category entity);
         List<Category> ToList();
-
         Category? FindById(int? id);
-
         public bool Update(Category category);
         public bool Delete(int id);
         public Category? FindByName(string? name);
+        public SearchResult<Category> GetPageData(Category category, string sortColumn, int start, int length);
     }
 }
