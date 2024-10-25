@@ -1,20 +1,38 @@
-﻿
-<a asp-controller="Category" asp-action="Create" class="btn btn-primary mx-2">Add Category</a>
-<h1>Category List</h1>
-<table id="category-table" class="table table-bordered table-striped text-end">
-    <thead>
-        <tr>
-            <th>Category Name</th>
-            <th>Display Order</th>
-            <th></th>
-        </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-</table>
+﻿<div class="row">
+    <div class="col-12">
+        <h1>Category List</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <a asp-controller="Category" asp-action="Create" class="btn btn-primary">Add Category</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-5 border-primary shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table id="category-table" class="table table-bordered table-striped text-end">
+                        <thead>
+                            <tr>
+                                <th>Category Name</th>
+                                <th>Display Order</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
     <script src="~/js/datatables/datatables.min.js"></script>
