@@ -132,6 +132,8 @@ namespace Ecomst.Controllers
 
             SearchResult<Category> result = _categoryService.Search(category, sortColumn, start, length);
 
+            //Explanation of the responce:
+            //https://stackoverflow.com/questions/43161353/recordstotal-recordsfiltered-explanation-jquery-datatable
             return Ok(new { 
                 draw = draw,
                 recordsTotal = result.RecordsTotal,

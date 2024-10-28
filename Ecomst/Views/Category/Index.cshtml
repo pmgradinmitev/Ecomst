@@ -13,7 +13,7 @@
         <div class="card mt-5 border-primary shadow-sm">
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table id="category-table" class="table table-bordered table-striped text-end">
+                    <table id="category-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Category Name</th>
@@ -43,8 +43,33 @@
                 serverSide: true,
                 paging: true,
                 bSortCellsTop: true,
-                sDom: 'ltipr',
+                sDom: 'ltipr', // remove default search box: https://stackoverflow.com/questions/29769968/remove-default-search-box-and-add-custom-one-in-jquery-datatable
                 ajax: { url: '/category/get' },
+                language: {
+                    //_MAX_ is the total number of records in the complete data set, regardless of paging and filtering
+                    //_TOTAL_ is the total number of records in the data set, regardless of paging, but including filtering
+                    "sEmptyTable": "В таблицата няма данни",
+                    "sInfo": "Показване на _START_ до _END_ от _TOTAL_ записа.",
+                    "sInfoEmpty": "Показани са от 0 до 0 от 0 записа",
+                    "sInfoFiltered": "(Филтрирани от _MAX_ записа)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ",",
+                        "sLengthMenu": "Показване на _MENU_ записа",
+                        "sLoadingRecords": "Зареждане...",
+                        "sProcessing": "Получаване...",
+                        "sSearch": "Търсене:",
+                        "sZeroRecords": "Няма намерени попадения...",
+                        // "oPaginate": {
+                        //     "sFirst": "Начало",
+                        //     "sLast": "Край",
+                        //     "sNext": "Следващ",
+                        //     "sPrevious": "Предишен"
+                        // },
+                        "oAria": {
+                            "sSortAscending": ": Активирайте дисплея във възходящ ред",
+                            "sSortDescending": ": Активирайте дисплея в низходящ ред"
+                        }
+                    },
                 initComplete: function () { 
                     this.api()
                         .columns([0, 1])
@@ -65,18 +90,26 @@
                             });
                         });
                 },
+                columnDefs: [
+                    // Center align the header content of column 1
+                    { className: "dt-head-center", targets: [0,1] },
+                    // Center align the body content of columns 2, 3, & 4
+                    { className: "dt-body-right", targets: [0, 1] }
+                ],
                 columns: [
-                    { data: 'name', width: '45%' },
-                    { data: 'displayOrder', width: '45%' },
+                    { data: 'name', width: '45%', title: 'Име' },
+                    { data: 'displayOrder', width: '45%', title: 'Ред на показване' },
                     {
                         data: 'id',
                         orderable: 'false',
-                        render: function (data) {
+                        //Link on how to access other columns data:
+                        //https://stackoverflow.com/questions/67380020/how-to-pass-multiple-parameters-in-columns-render-function-in-datatables-jquery
+                        render: function (data, type, row, meta) {
                             return `<div class="d-flex flex-row justify-content-center">
                                 <a href="/category/update?id=${data}" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
-                                <form method="post" action="/category/delete" onsubmit="return confirm('Do you really want to delete category');">
+                                <form method="post" action="/category/delete" onsubmit="return confirm('Do you really want to delete ${row.name}');">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="Id" value="${data}" />
                                     <button type="submit" class="btn btn-danger">
