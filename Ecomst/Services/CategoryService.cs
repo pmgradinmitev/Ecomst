@@ -28,7 +28,7 @@ namespace Ecomst.Services
             if (_modelState == null)
                 throw new ArgumentNullException(nameof(_modelState));
 
-            if (category.Name.ToLower() == "test")
+            if (!String.IsNullOrEmpty(category.Name) && category.Name.ToLower() == "test")
                 _modelState.AddError("", "\"Test\" is an invalid value!");
 
             Category? category1 = _repository.FindByName(category.Name);
