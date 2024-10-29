@@ -8,11 +8,11 @@ namespace Ecomst.ViewModels.Category
     {
         public int? Id { get; set; }
 
-        [Required]
-        [DisplayName("Category Name")]
+        [Required(ErrorMessage = "Полето \"Име\" е задължително!")]
+        [DisplayName("Име")]
         public string Name { get; set; }
-        [Required]
-        [DisplayName("Category Order")]
+        [Required(ErrorMessage = "Полето \"Ред на показване\" е задължително!")]
+        [DisplayName("Ред на показване")]
         public int DisplayOrder {  get; set; }
 
         public void PopulateCategory(Ecomst.Entities.Category categoty)
