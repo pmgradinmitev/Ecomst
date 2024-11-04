@@ -106,10 +106,10 @@
                         //https://stackoverflow.com/questions/67380020/how-to-pass-multiple-parameters-in-columns-render-function-in-datatables-jquery
                         render: function (data, type, row, meta) {
                             return `<div class="d-flex flex-row justify-content-center">
-                                <a href="/category/update?id=${data}" title="Редактиране">
+                                <a href="/Category/Update/${data}" title="Редактиране">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form method="post" action="/category/delete" onsubmit="return confirm('Do you really want to delete ${row.name}');">
+                                <form method="post" action="/Category/Delete" onsubmit="return confirm('Do you really want to delete ${row.name}');">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="Id" value="${data}" />
                                         <button type="submit" style="border: none; color:#0d6efd; background-color: transparent;" title="Изтриване">

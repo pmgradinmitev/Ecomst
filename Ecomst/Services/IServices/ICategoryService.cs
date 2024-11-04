@@ -12,6 +12,6 @@ namespace Ecomst.Services.IServices
         public bool UpdateCategory(Category category);
         public bool DeleteCategory(int id);
         public void SetModelStateDictionary(IValidationDictionary modelState);
-        public SearchResult<Category> Search(Category category, string sortColumn, int start, int length);
+        public SearchResult<Category> Search(CategorySearch searchModel, string sortColumn, int start, int length);
     }
 }

@@ -17,9 +17,6 @@ namespace Ecomst.ViewModels.Category
 
         public void PopulateCategory(Ecomst.Entities.Category categoty)
         {
-            if (Id != null && Id != 0)
-                categoty.Id = (int)Id;
-
             categoty.Name = Name;
             categoty.DisplayOrder = DisplayOrder;
         }

@@ -84,12 +84,12 @@ namespace Ecomst.Repositories
             return _context.Categories.Where(s => s.Name == name).FirstOrDefault();
         }
 
-        public SearchResult<Category> GetPageData(Category category, string sortColumn, int start, int length)
+        public SearchResult<Category> GetPageData(CategorySearch searchModel, string sortColumn, int start, int length)
         {
             IQueryable<Category> query = _context.Set<Category>();
             RecordsTotal = query.Count();
 
-            query = Search(category, query);
+            query = Search(searchModel, query);
             RecordsFiltered = query.Count();
 
             query = OrderBy(sortColumn, query);
@@ -123,12 +123,12 @@ namespace Ecomst.Repositories
             return query.Skip(start).Take(length);
         }
 
-        private IQueryable<Category> Search(Category category, IQueryable<Category> query)
+        private IQueryable<Category> Search(CategorySearch searchModel, IQueryable<Category> query)
         {
-            if (!String.IsNullOrEmpty(category.Name))
-                query = query.Where(s=>s.Name!.ToUpper().Contains(category.Name.ToUpper()));
-            if (category.DisplayOrder != 0)
-                query = query.Where(s => s.DisplayOrder == category.DisplayOrder);
+            if (!String.IsNullOrEmpty(searchModel.Name))
+                query = query.Where(s=>s.Name!.ToUpper().Contains(searchModel.Name.ToUpper()));
+            if (searchModel.DisplayOrder != null)
+                query = query.Where(s => s.DisplayOrder == searchModel.DisplayOrder);
             return query;
         }
     }

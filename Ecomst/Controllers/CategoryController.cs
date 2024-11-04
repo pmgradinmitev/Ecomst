@@ -120,17 +120,17 @@ namespace Ecomst.Controllers
             string? sortDirection = paramsCollection["order[0][dir]"];
             string sortColumn = "";
 
-            Category category = new Category();
-            category.Name = name;
+            CategorySearch searchModel = new CategorySearch();
+            searchModel.Name = name;
             if (!String.IsNullOrEmpty(defaultOrder))
-                category.DisplayOrder = int.Parse(defaultOrder);
+                searchModel.DisplayOrder = int.Parse(defaultOrder);
 
             if (sortDirection == "asc")
                 sortColumn = sortColumnName;
             else
                 sortColumn = $"-{sortColumnName}";
 
-            SearchResult<Category> result = _categoryService.Search(category, sortColumn, start, length);
+            SearchResult<Category> result = _categoryService.Search(searchModel, sortColumn, start, length);
 
             //Explanation of the responce:
             //https://stackoverflow.com/questions/43161353/recordstotal-recordsfiltered-explanation-jquery-datatable

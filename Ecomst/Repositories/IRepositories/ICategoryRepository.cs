@@ -11,6 +11,6 @@ namespace Ecomst.Repositories.IRepositories
         public bool Update(Category category);
         public bool Delete(int id);
         public Category? FindByName(string? name);
-        public SearchResult<Category> GetPageData(Category category, string sortColumn, int start, int length);
+        public SearchResult<Category> GetPageData(CategorySearch searchModel, string sortColumn, int start, int length);
     }
 }

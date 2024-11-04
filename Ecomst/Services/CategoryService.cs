@@ -89,9 +89,9 @@ namespace Ecomst.Services
             return _repository.Delete(id);
         }
 
-        public SearchResult<Category> Search(Category category, string sortColumn, int start, int length)
+        public SearchResult<Category> Search(CategorySearch searchModel, string sortColumn, int start, int length)
         {
-            return _repository.GetPageData(category, sortColumn, start, length);
+            return _repository.GetPageData(searchModel, sortColumn, start, length);
         }
     }
 }
