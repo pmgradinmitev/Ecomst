@@ -108,12 +108,12 @@
                                     <td>@obj.DisplayOrder</td>
                                     <td class="text-center">
                                         <div class="d-flex flex-row justify-content-center">
-                                            <a href="/Category/Update/${data}" title="Редактиране">
+                                            <a asp-controller="Category" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                             <form method="post" action="@Url.Action("Delete", "Category")" onsubmit="return confirm('Do you really want to delete (@obj.Name) category?');">
                                                 @Html.AntiForgeryToken()
-                                                <input type="hidden" name="Id" value="${data}" />
+                                                <input type="hidden" name="Id" value="@(obj.Id)" />
                                                 <button type="submit" style="border: none; color:#0d6efd; background-color: transparent;" title="Изтриване">
                                                     <i class="bi-trash"></i>
                                                 </button>
