@@ -20,8 +20,8 @@
                 </div>
                 <div>
                     @{
-                        var from = Model.Start + 1;
-                        var to = Model.Start + Model.Data.Count;
+                        var from =  Model.Data.Count == 0 ? 0 : Model.Start + 1;
+                        var to = Model.Data.Count == 0 ? 0 : Model.Start + Model.Data.Count;
                     }
                     Показани са @(from)-@(to) от @(Model.RecordsFiltered) записа
                 </div>
