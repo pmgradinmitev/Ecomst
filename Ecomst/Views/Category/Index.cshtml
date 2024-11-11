@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿@model CategoryTableViewModel;
+
+<div class="row">
     <div class="col-12">
         <h1>Списък с категории</h1>
     </div>
@@ -10,123 +12,151 @@
 </div>
 <div class="row">
     <div class="col-12">
+
         <div class="card mt-5 border-primary shadow-sm">
+            <div class="card-header bg-primary bg-gradient text-white d-flex justify-content-between">
+                <div>
+                    <i class="bi bi-list"></i>Категории
+                </div>
+                <div>
+                    @{
+                        var from = Model.Start + 1;
+                        var to = Model.Start + Model.Data.Count;
+                    }
+                    Показани са @(from)-@(to) от @(Model.RecordsFiltered) записа
+                </div>
+            </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table id="category-table" class="table table-bordered table-striped">
+                <div class="table-responsive" style="overflow-y: hidden">
+                    <!-- align-middle text-nowrap -->
+                    <table class="table table-bordered table-hover align-middle text-nowrap m-0" style="border-style: hidden;">
                         <thead>
                             <tr>
-                                <th>Име</th>
-                                <th>Ред на показване</th>
                                 <th></th>
+                                <th>
+                                    <a asp-action="Index"
+                                       asp-route-sortOrder="@(Model.SortOrder == "name" ? "-name" : "name")"
+                                       asp-route-name="@(Model.Name)"
+                                       asp-route-displayOrder="@(Model.DisplayOrder)">
+
+                                        @Html.DisplayNameFor(model => model.Name)
+                                        @if (Model.SortOrder == "name")
+                                        {
+                                            <i class="bi bi-sort-up"></i>
+                                        }
+                                        @if (Model.SortOrder == "-name")
+                                        {
+                                            <i class="bi bi-sort-down"></i>
+                                        }
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-action="Index"
+                                       asp-route-sortOrder="@(Model.SortOrder == "displayOrder" ? "-displayOrder" : "displayOrder")"
+                                       asp-route-name="@(Model.Name)"
+                                       asp-route-displayOrder="@(Model.DisplayOrder)">
+
+                                        @Html.DisplayNameFor(model => model.DisplayOrder)
+                                        @if (Model.SortOrder == "displayOrder")
+                                        {
+                                            <i class="bi bi-sort-up"></i>
+                                        }
+                                        @if (Model.SortOrder == "-displayOrder")
+                                        {
+                                            <i class="bi bi-sort-down"></i>
+                                        }
+                                    </a>
+                                </th>
+                                <th style="width: 75px;"></th>
                             </tr>
                             <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>#</th>
+                                <th>
+                                    <div class="d-flex flex-row justify-content-center">
+                                        <input type="text" asp-for="Name" form="id-search-form" class="form-control mx-1">
+                                        <a asp-controller="Category"
+                                           asp-action="Index"
+                                           asp-route-displayOrder="@(Model.DisplayOrder)"
+                                           class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="d-flex flex-row justify-content-center">
+                                        <input type="text" asp-for="DisplayOrder" form="id-search-form" class="form-control mx-1">
+                                        <a asp-controller="Category"
+                                           asp-action="Index"
+                                           asp-route-name="@(Model.Name)"
+                                           class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <form id="id-search-form" asp-controller="Category" asp-action="Index" method="get">
+                                        <button type="submit" class="btn btn-primary">Търси</button>
+                                    </form>
+                                </th>
                             </tr>
                         </thead>
+                        <tbody>
+                            @{
+                                var count = Model.Start;
+                            }
+                            @foreach (var obj in Model.Data)
+                            {
+                                <tr>
+                                    <td>@(++count)</td>
+                                    <td>@obj.Name</td>
+                                    <td>@obj.DisplayOrder</td>
+                                    <td class="text-center">
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <a href="/Category/Update/${data}" title="Редактиране">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <form method="post" action="@Url.Action("Delete", "Category")" onsubmit="return confirm('Do you really want to delete (@obj.Name) category?');">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="Id" value="${data}" />
+                                                <button type="submit" style="border: none; color:#0d6efd; background-color: transparent;" title="Изтриване">
+                                                    <i class="bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="card-footer">
+                <!--Utilities Spacing -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end m-0">
+                        @{
+                            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                        }
+                        <li class="page-item @prevDisabled">
+                            <a asp-action="Index"
+                               asp-route-sortOrder="@(Model.SortOrder)"
+                               asp-route-pageNumber="@(Model.PageNumber - 1)"
+                               asp-route-name="@(Model.Name)"
+                               asp-route-displayOrder="@(Model.DisplayOrder)"
+                               class="page-link" tabindex="-1">
+                                <i class="bi bi-chevron-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item @nextDisabled">
+                            <a asp-action="Index"
+                               asp-route-sortOrder="@(Model.SortOrder)"
+                               asp-route-pageNumber="@(Model.PageNumber + 1)"
+                               asp-route-name="@(Model.Name)"
+                               asp-route-displayOrder="@(Model.DisplayOrder)"
+                               class="page-link" tabindex="-1">
+                                <i class="bi bi-chevron-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
 </div>
-
-
-@section Scripts {
-    <script src="~/js/datatables/datatables.min.js"></script>
-    <script>
-        function loadDataTable() {
-            $("#category-table").DataTable({
-                processing: true,
-                serverSide: true,
-                paging: true,
-                bSortCellsTop: true,
-                sDom: 'ltipr', // remove default search box: https://stackoverflow.com/questions/29769968/remove-default-search-box-and-add-custom-one-in-jquery-datatable
-                ajax: { url: '/category/get' },
-                language: {
-                    //_MAX_ is the total number of records in the complete data set, regardless of paging and filtering
-                    //_TOTAL_ is the total number of records in the data set, regardless of paging, but including filtering
-                    sEmptyTable: "В таблицата няма данни",
-                    sInfo: "Показване на записи от _START_ до _END_ от _TOTAL_ записа.",
-                    sInfoEmpty: "Показани са от 0 до 0 от 0 записа",
-                    sInfoFiltered: "(Филтрирани от _MAX_ записа)",
-                        sInfoPostFix: "",
-                        sInfoThousands: ",",
-                        sLengthMenu: "Показване на _MENU_ записа",
-                        sLoadingRecords: "Зареждане...",
-                        sProcessing: "Получаване...",
-                        sSearch: "Търсене:",
-                        sZeroRecords: "Няма намерени попадения...",
-                        // "oPaginate": {
-                        //     "sFirst": "Начало",
-                        //     "sLast": "Край",
-                        //     "sNext": "Следващ",
-                        //     "sPrevious": "Предишен"
-                        // },
-                        oAria: {
-                            sSortAscending: ": Активирайте дисплея във възходящ ред",
-                            sSortDescending: ": Активирайте дисплея в низходящ ред"
-                        }
-                    },
-                initComplete: function () { 
-                    this.api()
-                        .columns([0, 1])
-                        .every(function () {
-                            let column = this;
-                            let title = column.header(0).textContent;
-
-                            //Create input element
-                            let input = document.createElement('input');
-                            input.style.width = '100%';
-                            input.placeholder = title;
-                            column.header(1).replaceChildren(input);
-
-                            //Event listener for user input
-                            input.addEventListener('keyup', () => {
-                                if (column.search() !== this.value)
-                                    column.search(input.value).draw();
-                            });
-                        });
-                },
-                columnDefs: [
-                    // Center align the header content of column 1
-                    { className: "dt-head-center", targets: [0,1] },
-                    // Center align the body content of columns 0, 1
-                    { className: "dt-body-right", targets: [0, 1] }
-                ],
-                columns: [
-                    { data: 'name', width: '45%' },
-                    { data: 'displayOrder', width: '45%' },
-                    {
-                        data: 'id',
-                        orderable: 'false',
-                        //Link on how to access other columns data:
-                        //https://stackoverflow.com/questions/67380020/how-to-pass-multiple-parameters-in-columns-render-function-in-datatables-jquery
-                        render: function (data, type, row, meta) {
-                            return `<div class="d-flex flex-row justify-content-center">
-                                <a href="/Category/Update/${data}" title="Редактиране">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <form method="post" action="/Category/Delete" onsubmit="return confirm('Do you really want to delete ${row.name}');">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="Id" value="${data}" />
-                                        <button type="submit" style="border: none; color:#0d6efd; background-color: transparent;" title="Изтриване">
-                                        <i class="bi-trash"></i>
-                                    </button>
-                                </form>
-                            </div>`;
-                        },
-                        width: '10%'
-                    }
-                ]
-            }
-            );
-        }
-
-        $(document).ready(function () {
-            loadDataTable();
-        });
-    </script>
-}

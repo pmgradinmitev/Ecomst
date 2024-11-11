@@ -18,9 +18,14 @@ namespace Ecomst.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(CategoryTableViewModel viewModel)
         {
-            return View();
+            CategorySearch searchModel = new CategorySearch();
+            searchModel.Name = viewModel.Name;
+            searchModel.DisplayOrder = viewModel.DisplayOrder;
+            SearchResult<Category> result = _categoryService.Search(searchModel, viewModel.SortOrder, viewModel.PageNumber, viewModel.Length);
+            viewModel.PopulateFromSearchResult(result);
+            return View(viewModel);
         }
 
         public IActionResult Create()
