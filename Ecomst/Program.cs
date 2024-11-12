@@ -15,8 +15,6 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-builder.Services.AddHttpContextAccessor();
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

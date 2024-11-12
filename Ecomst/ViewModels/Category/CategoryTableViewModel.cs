@@ -1,5 +1,6 @@
 ﻿using Ecomst.DTO;
 using Ecomst.Helpers;
+using System.ComponentModel;
 
 namespace Ecomst.ViewModels.Category
 {
@@ -16,7 +17,9 @@ namespace Ecomst.ViewModels.Category
         }
 
         //Search properties
+        [DisplayName("Име")]
         public string? Name {  get; set; }
+        [DisplayName("Ред на показване")]
         public int? DisplayOrder { get; set; }
     }
 }

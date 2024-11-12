@@ -29,19 +29,19 @@ namespace Ecomst.Services
                 throw new ArgumentNullException(nameof(_modelState));
 
             if (!String.IsNullOrEmpty(category.Name) && category.Name.ToLower() == "test")
-                _modelState.AddError("", "\"Test\" is an invalid value!");
+                _modelState.AddError("", "\"Test\" е невалидна стойност!");
 
             Category? category1 = _repository.FindByName(category.Name);
             if (category1 != null)
             {
                 if(category.Id != category1.Id)
-                    _modelState.AddError("", $"Category {category1.Name} already exists.");
+                    _modelState.AddError("", $"Категория {category1.Name} вече съществува.");
             }
                 
             Regex regex = new Regex(@"\d+");
             Match match = regex.Match(category.Name);
             if (match.Success)
-                _modelState.AddError("", "Category name can not have a number.");
+                _modelState.AddError("", "Името на категорията не може да съдържа число.");
 
 
             return _modelState.IsValid;

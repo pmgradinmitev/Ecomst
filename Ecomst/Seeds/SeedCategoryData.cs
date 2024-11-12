@@ -20,17 +20,17 @@ namespace Ecomst.Seeds
                 context.Categories.AddRange(
                     new Category
                     {
-                        Name = "Action",
+                        Name = "Обективи",
                         DisplayOrder = 1,
                     },
                     new Category
                     {
-                        Name = "SciFi",
+                        Name = "Фотоапарати",
                         DisplayOrder = 2,
                     },
                     new Category
                     {
-                        Name = "History",
+                        Name = "Дронове",
                         DisplayOrder = 3,
                     }
                 );

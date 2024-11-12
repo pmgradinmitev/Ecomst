@@ -11,11 +11,9 @@ namespace Ecomst.Controllers
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;
-        private IHttpContextAccessor _httpContextAccessor;
-        public CategoryController(ICategoryService categoryService, IHttpContextAccessor httpContextAccessor)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index(CategoryTableViewModel viewModel)
@@ -44,12 +42,12 @@ namespace Ecomst.Controllers
             viewModel.PopulateCategory(category);
             if (_categoryService.AddCategory(category))
             {
-                TempData["success"] = $"Category {category.Name} was created successfully!";
+                TempData["success"] = $"Категория {category.Name} е създадена успешно!";
                 return RedirectToAction("Index");
             }
             else if (ModelState.IsValid)
             {
-                TempData["error"] = "Unable to create category!";
+                TempData["error"] = "Категорията не може да бъде създадена!";
             }
             
             return View(viewModel);
@@ -60,7 +58,7 @@ namespace Ecomst.Controllers
             Category? category = _categoryService.GetCategoryById(id);
             if (category == null)
             {
-                TempData["error"] = "Category with id " + id + " not found!";
+                TempData["error"] = "Не е намерена категория с идентификатор " + id + "!";
                 return RedirectToAction("Index");
             }
             CategoryViewModel viewModel = new CategoryViewModel();
@@ -77,18 +75,18 @@ namespace Ecomst.Controllers
             Category? category = _categoryService.GetCategoryById(viewModel.Id);
             if (category == null)
             {
-                TempData["error"] = "Unable to find category!";
+                TempData["error"] = "Не е намерена категория с идентификатор " + viewModel.Id + "!"; ;
                 return RedirectToAction("Index");
             }
             viewModel.PopulateCategory(category);
             if (_categoryService.UpdateCategory(category))
             {
-                TempData["success"] = $"Category {category.Name} was updated successfully!";
+                TempData["success"] = $"Категория {category.Name} е редактирана успешно!";
                 return RedirectToAction("Index");
             }
             else if (ModelState.IsValid)
             {
-                TempData["error"] = "Unable to update category!";
+                TempData["error"] = "Неуспешно редактиране на категория!";
             }
             
             return View(viewModel);
@@ -100,61 +98,13 @@ namespace Ecomst.Controllers
         {
             if (_categoryService.DeleteCategory(id))
             {
-                TempData["success"] = "Category was deleted successfully";
+                TempData["success"] = "Категорията е изтрита успешно!";
             }
             else
             {
-                TempData["error"] = "Unable to delete category";
+                TempData["error"] = "Категорията не може да бъде изтрита!";
             }
             return RedirectToAction("Index");
-        }
-
-        public IActionResult Get(int draw, int start, int length)
-        {
-            PrintUrlQueryParamsInConsole();
-            string urlQuery = _httpContextAccessor.HttpContext.Request.QueryString.Value;
-            var paramsCollection = HttpUtility.ParseQueryString(urlQuery);
-
-            //Get search params
-            string? name = paramsCollection["columns[0][search][value]"];
-            string? defaultOrder = paramsCollection["columns[1][search][value]"];
-
-            //Get sort
-            string? sortColumnIndex = paramsCollection["order[0][column]"];
-            string? sortColumnName = paramsCollection["columns[" + sortColumnIndex + "][data]"];
-            string? sortDirection = paramsCollection["order[0][dir]"];
-            string sortColumn = "";
-
-            CategorySearch searchModel = new CategorySearch();
-            searchModel.Name = name;
-            if (!String.IsNullOrEmpty(defaultOrder))
-                searchModel.DisplayOrder = int.Parse(defaultOrder);
-
-            if (sortDirection == "asc")
-                sortColumn = sortColumnName;
-            else
-                sortColumn = $"-{sortColumnName}";
-
-            SearchResult<Category> result = _categoryService.Search(searchModel, sortColumn, start, length);
-
-            //Explanation of the responce:
-            //https://stackoverflow.com/questions/43161353/recordstotal-recordsfiltered-explanation-jquery-datatable
-            return Ok(new { 
-                draw = draw,
-                recordsTotal = result.RecordsTotal,
-                recordsFiltered = result.RecordsFiltered,
-                data = result.Data
-            });
-        }
-
-        private void PrintUrlQueryParamsInConsole()
-        {
-            string urlQuery = _httpContextAccessor.HttpContext.Request.QueryString.Value;
-            var paramsCollection = HttpUtility.ParseQueryString(urlQuery);
-            foreach(var key in paramsCollection.AllKeys)
-            {
-                Console.WriteLine($"Key: {key} => Value: {paramsCollection[key]}");
-            }
         }
     }
 }

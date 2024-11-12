@@ -111,7 +111,7 @@
                                             <a asp-controller="Category" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <form method="post" action="@Url.Action("Delete", "Category")" onsubmit="return confirm('Do you really want to delete (@obj.Name) category?');">
+                                            <form method="post" action="@Url.Action("Delete", "Category")" onsubmit="return confirm('Наистина ли искате да изтриете категория: @obj.Name?');">
                                                 @Html.AntiForgeryToken()
                                                 <input type="hidden" name="Id" value="@(obj.Id)" />
                                                 <button type="submit" style="border: none; color:#0d6efd; background-color: transparent;" title="Изтриване">
