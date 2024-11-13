@@ -22,6 +22,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     SeedCategoryData.Initialize(services);
+    SeedProductData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.

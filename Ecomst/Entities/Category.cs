@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ecomst.Entities
 {
@@ -9,5 +10,7 @@ namespace Ecomst.Entities
         [Required]
         public string Name { get; set; }
         public int DisplayOrder { get; set; }
+        //https://learn.microsoft.com/en-us/ef/core/modeling/relationships/one-to-many
+        public ICollection<Product> Products { get; } = new List<Product>();
     }
 }
