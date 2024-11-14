@@ -6,8 +6,8 @@ namespace Ecomst.ViewModels.Product
 {
     public class ProductTableViewModel:BaseTableViewModel
     {
-        public List<Ecomst.Entities.Category> Data { get; set; }
-        public void PopulateFromSearchResult(SearchResult<Ecomst.Entities.Category> searchResult)
+        public List<Ecomst.Entities.Product> Data { get; set; }
+        public void PopulateFromSearchResult(SearchResult<Ecomst.Entities.Product> searchResult)
         {
             TotalPages = searchResult.TotalPages;
             RecordsTotal = searchResult.RecordsTotal;
@@ -25,6 +25,9 @@ namespace Ecomst.ViewModels.Product
         public string Title { get; set; }
         [DisplayName("Описание")]
         public string Description { get; set; }
+        [DisplayName("В наличност")]
         public bool InStock { get; set; }
+        [DisplayName("Цена")]
+        public decimal Price { get; set; }
     }
 }
