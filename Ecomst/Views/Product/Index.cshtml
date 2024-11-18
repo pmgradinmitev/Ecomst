@@ -12,7 +12,6 @@
 </div>
 <div class="row">
     <div class="col-12">
-
         <div class="card mt-5 border-primary shadow-sm">
             <div class="card-header bg-primary bg-gradient text-white d-flex justify-content-between">
                 <div>
@@ -118,7 +117,9 @@
                                 <th></th>
                                 <th>
                                     <div class="d-flex flex-row justify-content-center">
-                                        <input type="text" asp-for="InStock" form="id-search-form" class="form-control mx-1">
+                                        <select asp-for="InStock" asp-items="Model.InStockList" form="id-search-form" class="form-control mx-1">
+                                            <option disabled selected>--Избери наличност--</option>
+                                        </select>
                                         <a asp-controller="Product"
                                            asp-action="Index"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
@@ -126,7 +127,9 @@
                                 </th>
                                 <th>
                                     <div class="d-flex flex-row justify-content-center">
-                                        <input type="text" asp-for="CategoryId" form="id-search-form" class="form-control mx-1">
+                                        <select asp-for="CategoryId" asp-items="Model.CategoryList" form="id-search-form" class="form-control mx-1">
+                                            <option disabled selected>--Избери категория--</option>
+                                        </select>
                                         <a asp-controller="Product"
                                            asp-action="Index"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
@@ -150,9 +153,18 @@
                                     <td>@obj.CodeNumber</td>
                                     <td>@obj.Title</td>
                                     <td>@obj.Description</td>
-                                    <td>@obj.Price</td>
-                                    <td>@obj.InStock</td>
-                                    <td>@obj.CategoryId</td>
+                                    <td><span class="p-2 badge rounded-pill bg-success">@obj.Price</span></td>
+                                    <td>
+                                        @if (@obj.InStock == true)
+                                        {
+                                            <span style="color: rgba(var(--bs-success-rgb));"><i class="bi bi-check-circle"></i></span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color: rgba(var(--bs-danger-rgb));"><i class="bi bi-x-circle"></i></span>
+                                        }
+                                    </td>
+                                    <td>@obj.Category.Name</td>
                                     <td class="text-center">
                                         <div class="d-flex flex-row justify-content-center">
                                             <a asp-controller="Product" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">

@@ -1,10 +1,11 @@
 ﻿using Ecomst.DTO;
 using Ecomst.Helpers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 
 namespace Ecomst.ViewModels.Product
 {
-    public class ProductTableViewModel:BaseTableViewModel
+    public class ProductTableViewModel : BaseTableViewModel
     {
         public List<Ecomst.Entities.Product> Data { get; set; }
         public void PopulateFromSearchResult(SearchResult<Ecomst.Entities.Product> searchResult)
@@ -16,17 +17,23 @@ namespace Ecomst.ViewModels.Product
             Data = searchResult.Data;
         }
 
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public IEnumerable<SelectListItem> InStockList { get; set; } = new []{
+            new SelectListItem{Value="0", Text="Не"},
+            new SelectListItem{Value="1", Text="Да"},
+        };
+
         //Search properties
         [DisplayName("Категория")]
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         [DisplayName("Номер на продукта")]
-        public string CodeNumber { get; set; }
+        public string? CodeNumber { get; set; }
         [DisplayName("Заглавие")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [DisplayName("Описание")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [DisplayName("В наличност")]
-        public bool InStock { get; set; }
+        public int? InStock { get; set; }
         [DisplayName("Цена")]
         public decimal Price { get; set; }
     }

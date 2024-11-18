@@ -1,5 +1,6 @@
 ﻿using Ecomst.DTO;
 using Ecomst.Entities;
+using Ecomst.Helpers;
 using Ecomst.Services.IServices;
 using Ecomst.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,12 @@ namespace Ecomst.Controllers
     public class ProductController : Controller
     {
         private IProductService _productService;
-        public ProductController(IProductService productService)
+        private ICategoryService _categoryService;
+
+        public ProductController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index(ProductTableViewModel viewModel)
@@ -24,6 +28,8 @@ namespace Ecomst.Controllers
             searchModel.InStock = viewModel.InStock;
             SearchResult<Product> result = _productService.Search(searchModel, viewModel.SortOrder, viewModel.PageNumber, viewModel.Length);
             viewModel.PopulateFromSearchResult(result);
+            List<Category> categoryList = _categoryService.GetCategoryList();
+            viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
             return View(viewModel);
         }
     }

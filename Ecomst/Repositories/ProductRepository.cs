@@ -58,10 +58,19 @@ namespace Ecomst.Repositories
 
         private IQueryable<Product> Search(ProductSearch searchModel, IQueryable<Product> query)
         {
-            //if (!String.IsNullOrEmpty(searchModel.Name))
-            //    query = query.Where(s=>s.Name!.ToUpper().Contains(searchModel.Name.ToUpper()));
-            //if (searchModel.DisplayOrder != null)
-            //    query = query.Where(s => s.DisplayOrder == searchModel.DisplayOrder);
+            if (!String.IsNullOrEmpty(searchModel.CodeNumber))
+                query = query.Where(s => s.CodeNumber!.ToUpper().Contains(searchModel.CodeNumber.ToUpper()));
+            if (!String.IsNullOrEmpty(searchModel.Title))
+                query = query.Where(s => s.Title!.ToUpper().Contains(searchModel.Title.ToUpper()));
+            if (!String.IsNullOrEmpty(searchModel.Description))
+                query = query.Where(s => s.Description!.ToUpper().Contains(searchModel.Description.ToUpper()));
+            if (searchModel.InStock != null)
+            {
+                bool flag = searchModel.InStock == 0 ? false : true;
+                query = query.Where(s => s.InStock == flag);
+            }
+            if (searchModel.CategoryId != null)
+                query = query.Where(s => s.CategoryId == searchModel.CategoryId);
             return query;
         }
     }
