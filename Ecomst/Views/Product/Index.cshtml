@@ -34,7 +34,12 @@
                                 <th></th>
                                 <th>
                                     <a asp-action="Index"
-                                       asp-route-SortOrder="@(Model.SortOrder == "codeNumber" ? "-codeNumber" : "codeNumber")">
+                                       asp-route-SortOrder="@(Model.SortOrder == "codeNumber" ? "-codeNumber" : "codeNumber")"
+                                       asp-route-CodeNumber="@(Model.CodeNumber)"
+                                       asp-route-Title="@(Model.Title)"
+                                       asp-route-Description="@(Model.Description)"
+                                       asp-route-InStock="@(Model.InStock)"
+                                       asp-route-CategoryId="@(Model.CategoryId)">
 
                                         @Html.DisplayNameFor(model => model.CodeNumber)
                                         @if (Model.SortOrder == "codeNumber")
@@ -49,7 +54,12 @@
                                 </th>
                                 <th>
                                     <a asp-action="Index"
-                                       asp-route-SortOrder="@(Model.SortOrder == "title" ? "-title" : "title")">
+                                       asp-route-SortOrder="@(Model.SortOrder == "title" ? "-title" : "title")"
+                                       asp-route-CodeNumber="@(Model.CodeNumber)"
+                                       asp-route-Title="@(Model.Title)"
+                                       asp-route-Description="@(Model.Description)"
+                                       asp-route-InStock="@(Model.InStock)"
+                                       asp-route-CategoryId="@(Model.CategoryId)">
 
                                         @Html.DisplayNameFor(model => model.Title)
                                         @if (Model.SortOrder == "title")
@@ -67,7 +77,12 @@
                                 </th>
                                 <th>
                                     <a asp-action="Index"
-                                       asp-route-SortOrder="@(Model.SortOrder == "price" ? "-price" : "price")">
+                                       asp-route-SortOrder="@(Model.SortOrder == "price" ? "-price" : "price")"
+                                       asp-route-CodeNumber="@(Model.CodeNumber)"
+                                       asp-route-Title="@(Model.Title)"
+                                       asp-route-Description="@(Model.Description)"
+                                       asp-route-InStock="@(Model.InStock)"
+                                       asp-route-CategoryId="@(Model.CategoryId)">
 
                                         @Html.DisplayNameFor(model => model.Price)
                                         @if (Model.SortOrder == "price")
@@ -95,6 +110,10 @@
                                         <input type="text" asp-for="CodeNumber" form="id-search-form" class="form-control mx-1">
                                         <a asp-controller="Product"
                                            asp-action="Index"
+                                           asp-route-Title="@(Model.Title)"
+                                           asp-route-Description="@(Model.Description)"
+                                           asp-route-InStock="@(Model.InStock)"
+                                           asp-route-CategoryId="@(Model.CategoryId)"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
                                     </div>
                                 </th>
@@ -103,6 +122,10 @@
                                         <input type="text" asp-for="Title" form="id-search-form" class="form-control mx-1">
                                         <a asp-controller="Product"
                                            asp-action="Index"
+                                           asp-route-CodeNumber="@(Model.CodeNumber)"
+                                           asp-route-Description="@(Model.Description)"
+                                           asp-route-InStock="@(Model.InStock)"
+                                           asp-route-CategoryId="@(Model.CategoryId)"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
                                     </div>
                                 </th>
@@ -111,6 +134,10 @@
                                         <input type="text" asp-for="Description" form="id-search-form" class="form-control mx-1">
                                         <a asp-controller="Product"
                                            asp-action="Index"
+                                           asp-route-CodeNumber="@(Model.CodeNumber)"
+                                           asp-route-Title="@(Model.Title)"
+                                           asp-route-InStock="@(Model.InStock)"
+                                           asp-route-CategoryId="@(Model.CategoryId)"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
                                     </div>
                                 </th>
@@ -122,6 +149,10 @@
                                         </select>
                                         <a asp-controller="Product"
                                            asp-action="Index"
+                                           asp-route-CodeNumber="@(Model.CodeNumber)"
+                                           asp-route-Title="@(Model.Title)"
+                                           asp-route-Description="@(Model.Description)"
+                                           asp-route-CategoryId="@(Model.CategoryId)"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
                                     </div>
                                 </th>
@@ -132,6 +163,10 @@
                                         </select>
                                         <a asp-controller="Product"
                                            asp-action="Index"
+                                           asp-route-CodeNumber="@(Model.CodeNumber)"
+                                           asp-route-Title="@(Model.Title)"
+                                           asp-route-Description="@(Model.Description)"
+                                           asp-route-InStock="@(Model.InStock)"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
                                     </div>
                                 </th>
@@ -197,6 +232,11 @@
                             <a asp-action="Index"
                                asp-route-SortOrder="@(Model.SortOrder)"
                                asp-route-PageNumber="@(Model.PageNumber - 1)"
+                               asp-route-CodeNumber="@(Model.CodeNumber)"
+                               asp-route-Title="@(Model.Title)"
+                               asp-route-Description="@(Model.Description)"
+                               asp-route-InStock="@(Model.InStock)"
+                               asp-route-CategoryId="@(Model.CategoryId)"
                                class="page-link" tabindex="-1">
                                 <i class="bi bi-chevron-double-left"></i>
                             </a>
@@ -205,6 +245,11 @@
                             <a asp-action="Index"
                                asp-route-SortOrder="@(Model.SortOrder)"
                                asp-route-PageNumber="@(Model.PageNumber + 1)"
+                               asp-route-CodeNumber="@(Model.CodeNumber)"
+                               asp-route-Title="@(Model.Title)"
+                               asp-route-Description="@(Model.Description)"
+                               asp-route-InStock="@(Model.InStock)"
+                               asp-route-CategoryId="@(Model.CategoryId)"
                                class="page-link" tabindex="-1">
                                 <i class="bi bi-chevron-double-right"></i>
                             </a>

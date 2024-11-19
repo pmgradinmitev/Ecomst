@@ -37,18 +37,21 @@ namespace Ecomst.Repositories
 
         private IQueryable<Product> OrderBy(string value, IQueryable<Product> query)
         {
-            //switch (value)
-            //{
-            //    case "-category":
-            //        return query.OrderByDescending(s => s.Name);
-            //    case "-displayOrder":
-            //        return query.OrderByDescending(s => s.DisplayOrder);
-            //    case "displayOrder":
-            //        return query.OrderBy(s => s.DisplayOrder);
-            //    default:
-            //        return query.OrderBy(s => s.Name);
-            //}
-            return query;
+            switch (value)
+            {
+                case "-price":
+                    return query.OrderByDescending(s => s.Price);
+                case "price":
+                    return query.OrderBy(s => s.Price);
+                case "-codeNumber":
+                    return query.OrderByDescending(s => s.CodeNumber);
+                case "title":
+                    return query.OrderBy(s => s.Title);
+                case "-title":
+                    return query.OrderByDescending(s => s.Title);
+                default:
+                    return query.OrderBy(s => s.CodeNumber);
+            }
         }
 
         private IQueryable<Product> WithPagination(int start, int length, IQueryable<Product> query)
