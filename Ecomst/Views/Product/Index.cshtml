@@ -29,7 +29,7 @@
                 <div class="table-responsive" style="overflow-y: hidden">
                     <!-- align-middle text-nowrap -->
                     <table class="table table-bordered table-hover align-middle text-nowrap m-0" style="border-style: hidden;">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
                                 <th></th>
                                 <th>
@@ -183,13 +183,17 @@
                             }
                             @foreach (var obj in Model.Data)
                             {
+                                var collapseId = $"collapse-{count}";
+                               
                                 <tr>
-                                    <td>@(++count)</td>
-                                    <td>@obj.CodeNumber</td>
-                                    <td>@obj.Title</td>
-                                    <td>@obj.Description</td>
-                                    <td><span class="p-2 badge rounded-pill bg-success">@obj.Price</span></td>
-                                    <td>
+                                    <td class="text-center">@(++count)</td>
+                                    <td class="text-center">@obj.CodeNumber</td>
+                                    <td class="text-center">@obj.Title</td>
+                                    <td class="text-center">
+                                        <a href="#@collapseId" data-bs-toggle="collapse">Покажи описанието...</a>
+                                     </td>
+                                    <td class="text-center"><span class="p-2 badge rounded-pill bg-success">@obj.Price</span></td>
+                                    <td class="text-center">
                                         @if (@obj.InStock == true)
                                         {
                                             <span style="color: rgba(var(--bs-success-rgb));"><i class="bi bi-check-circle"></i></span>
@@ -199,7 +203,7 @@
                                             <span style="color: rgba(var(--bs-danger-rgb));"><i class="bi bi-x-circle"></i></span>
                                         }
                                     </td>
-                                    <td>@obj.Category.Name</td>
+                                    <td class="text-center">@obj.Category.Name</td>
                                     <td class="text-center">
                                         <div class="d-flex flex-row justify-content-center">
                                             <a asp-controller="Product" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">
@@ -214,6 +218,15 @@
                                             </form>
                                         </div>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8" class="p-0">
+                                        <div id="@collapseId" class="accordion-collapse collapse" style="background-color: #cff4fc;">
+                                            <div class="accordion-body">
+                                                @obj.Description
+                                            </div>
+                                        </div>
+                                     </td>
                                 </tr>
                             }
                         </tbody>
