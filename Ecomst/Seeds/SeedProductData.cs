@@ -27,7 +27,7 @@ namespace Ecomst.Seeds
                         Description = "Oписание.",
                         Price = 2500.00m,
                         InStock = true,
-                        ImagePath = "",
+                        ThumbnailImagePath = "",
                         Category = category,
                     },
                     new Product
@@ -37,7 +37,7 @@ namespace Ecomst.Seeds
                         Description = "Oписание.",
                         Price = 500.00m,
                         InStock = true,
-                        ImagePath = "",
+                        ThumbnailImagePath = "",
                         Category = category,
                     }
                 );
