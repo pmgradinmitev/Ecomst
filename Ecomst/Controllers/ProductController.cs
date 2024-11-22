@@ -2,6 +2,7 @@
 using Ecomst.Entities;
 using Ecomst.Helpers;
 using Ecomst.Services.IServices;
+using Ecomst.ViewModels.Category;
 using Ecomst.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,14 @@ namespace Ecomst.Controllers
             searchModel.InStock = viewModel.InStock;
             SearchResult<Product> result = _productService.Search(searchModel, viewModel.SortOrder, viewModel.PageNumber, viewModel.Length);
             viewModel.PopulateFromSearchResult(result);
+            List<Category> categoryList = _categoryService.GetCategoryList();
+            viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
+            return View(viewModel);
+        }
+
+        public IActionResult Create()
+        {
+            ProductViewModel viewModel = new ProductViewModel();
             List<Category> categoryList = _categoryService.GetCategoryList();
             viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
             return View(viewModel);
