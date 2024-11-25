@@ -41,5 +41,12 @@ namespace Ecomst.Controllers
             viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
             return View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ProductViewModel viewModel, IFormFile? file)
+        {
+            return View(viewModel);
+        }
     }
 }

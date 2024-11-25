@@ -14,7 +14,7 @@
 
                     <div class="row">
                         <div class="col-8">
-                            <div class="row">
+                            <div class="row mb-2">
                                 <div class="col-6">
                                     <label asp-for="CodeNumber"></label>
                                     <input asp-for="CodeNumber" class="form-control" />
@@ -29,29 +29,47 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <label asp-for="Title"></label>
                                     <input asp-for="Title" class="form-control" />
                                     <span asp-validation-for="Title" class="text-danger"></span>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <label asp-for="Description"></label>
                                     <textarea cols="50" rows="2" asp-for="Description" class="form-control"></textarea>
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <label asp-for="Price"></label>
+                                    <input asp-for="Price" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="form-check">
+                                        <label asp-for="InStock"></label>
+                                        @Html.CheckBoxFor(m=>m.InStock, new { @class="form-check-input"})
+                                        <span asp-validation-for="InStock" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label asp-for="ThumbnailImagePath"></label>
+                                <input type="file" name="file" class="form-control border-0" style="padding-left:25px;"/>
+                            </div>
                         </div>
                         <div class="col-4">
-
+                            <img src="@Url.Content("~/" + StaticData.GetEmptyImagePath())" width="100%" style="border-radius: 5px; border:1px solid #bbb9b9;" />
                         </div>
                     </div>
 
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center mt-5">
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary form-control">@(Model.Id != null ? "Редактирай" : "Създай")</button>
                         </div>
                         <div class="col-4">
-                            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondery form-control">Към списъка</a>
+                            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary form-control">Към списъка</a>
                         </div>
                     </div>
                </form>

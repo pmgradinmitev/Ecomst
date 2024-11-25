@@ -23,9 +23,9 @@ namespace Ecomst.ViewModels.Product
         [DisplayName("Цена")]
         public decimal Price {  get; set; }
         [Required(ErrorMessage = "Полето \"В наличност\" е задължително!")]
-        [DisplayName("Номер на продукта")]
+        [DisplayName("В наличност")]
         public bool InStock {  get; set; }
-        [DisplayName("Номер на продукта")]
+        [DisplayName("Снимка на продукта")]
         public string ThumbnailImagePath { get; set; }
 
         public IEnumerable<SelectListItem> CategoryList { get; set; }

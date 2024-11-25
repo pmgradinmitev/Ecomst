@@ -6,8 +6,8 @@ namespace Ecomst.Helpers
 {
     public class Utils
     {
-       public static IEnumerable<SelectListItem> ListToSelectListItem<T>(List<T> data, string propertyForText, string propertyForValue)
-       {
+        public static IEnumerable<SelectListItem> ListToSelectListItem<T>(List<T> data, string propertyForText, string propertyForValue)
+        {
             IEnumerable<SelectListItem> itemList = data.ConvertAll(a =>
             {
                 return new SelectListItem()
@@ -17,6 +17,22 @@ namespace Ecomst.Helpers
                 };
             });
             return itemList;
-       }
+        }
+       
+        public static string SaveFormFile(IFormFile file, string directory)
+        {
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            using (var fileStream = new FileStream(Path.Combine(directory, fileName), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+            return fileName;
+        }
+        
+        public static void DeleteFile(string path)
+        {
+            if (!String.IsNullOrEmpty(path) && System.IO.File.Exists(path))
+                System.IO.File.Delete(path);
+        }
     }
 }
