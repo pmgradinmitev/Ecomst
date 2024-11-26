@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,13 +22,14 @@ namespace Ecomst.ViewModels.Product
         public string Description { get; set; }
         [Required(ErrorMessage = "Полето \"Цена\" е задължително!")]
         [DisplayName("Цена")]
-        public decimal Price {  get; set; }
+        public decimal? Price {  get; set; }
         [Required(ErrorMessage = "Полето \"В наличност\" е задължително!")]
         [DisplayName("В наличност")]
         public bool InStock {  get; set; }
         [DisplayName("Снимка на продукта")]
+        [ValidateNever]
         public string ThumbnailImagePath { get; set; }
-
+        [ValidateNever]
         public IEnumerable<SelectListItem> CategoryList { get; set; }
     }
 }

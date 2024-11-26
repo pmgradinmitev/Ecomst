@@ -8,5 +8,6 @@ namespace Ecomst.Services.IServices
     {
         public SearchResult<Product> Search(ProductSearch searchModel, string sortColumn, int start, int length);
         public void SetModelStateDictionary(IValidationDictionary modelState);
+        public bool AddProduct(Product product, IFormFile? file);
     }
 }

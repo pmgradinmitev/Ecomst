@@ -46,6 +46,21 @@ namespace Ecomst.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ProductViewModel viewModel, IFormFile? file)
         {
+            _productService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
+            List<Category> categoryList = _categoryService.GetCategoryList();
+            viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
+
+            Product product = new Product();
+            //viewModel.PopulateProduct(product);
+            //if (_productService.AddProduct(product, file))
+            //{
+            //    TempData["success"] = $"Категория {category.Name} е създадена успешно!";
+            //    return RedirectToAction("Index");
+            //}
+            //else if (ModelState.IsValid)
+            //{
+            //    TempData["error"] = "Категорията не може да бъде създадена!";
+            //}
             return View(viewModel);
         }
     }
