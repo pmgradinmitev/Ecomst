@@ -31,5 +31,15 @@ namespace Ecomst.ViewModels.Product
         public string ThumbnailImagePath { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> CategoryList { get; set; }
+
+        public void PopulateProduct(Ecomst.Entities.Product product)
+        {
+            product.Title = Title;
+            product.CategoryId = CategoryId;
+            product.CodeNumber = CodeNumber;
+            product.Description = Description;
+            product.Price = (decimal) Price;
+            product.InStock = InStock;
+        }
     }
 }

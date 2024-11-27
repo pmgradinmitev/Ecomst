@@ -57,7 +57,7 @@ namespace Ecomst.Services
                 if (!ValidateProductOnCreate(product, file))
                     return false;
 
-                fileName = Utils.SaveFormFile(file, filePath);
+                fileName = Utils.SaveFormFile(file, fullPath);
                 filePath = productIamgeDirectory + Path.DirectorySeparatorChar + fileName;
                 product.ThumbnailImagePath = filePath;
 

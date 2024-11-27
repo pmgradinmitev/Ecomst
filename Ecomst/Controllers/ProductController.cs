@@ -51,16 +51,16 @@ namespace Ecomst.Controllers
             viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
 
             Product product = new Product();
-            //viewModel.PopulateProduct(product);
-            //if (_productService.AddProduct(product, file))
-            //{
-            //    TempData["success"] = $"Категория {category.Name} е създадена успешно!";
-            //    return RedirectToAction("Index");
-            //}
-            //else if (ModelState.IsValid)
-            //{
-            //    TempData["error"] = "Категорията не може да бъде създадена!";
-            //}
+            viewModel.PopulateProduct(product);
+            if (_productService.AddProduct(product, file))
+            {
+                TempData["success"] = $"Продукт {product.Title} е създадена успешно!";
+                return RedirectToAction("Index");
+            }
+            else if (ModelState.IsValid)
+            {
+                TempData["error"] = "Продуктът не може да бъде създадена!";
+            }
             return View(viewModel);
         }
     }
