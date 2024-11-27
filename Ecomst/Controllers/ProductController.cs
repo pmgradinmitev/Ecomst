@@ -63,5 +63,10 @@ namespace Ecomst.Controllers
             }
             return View(viewModel);
         }
+
+        //public IActionResult Update(int id)
+        //{
+           
+        //}
     }
 }

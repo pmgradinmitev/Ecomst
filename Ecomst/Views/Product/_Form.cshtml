@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <img src="@Url.Content("~/" + StaticData.GetEmptyImagePath())" width="100%" style="border-radius: 5px; border:1px solid #bbb9b9;" />
+                            <img src="@Url.Content(String.IsNullOrEmpty(Model.ThumbnailImagePath) ? "~/" + StaticData.GetEmptyImagePath() : "~/" + Model.ThumbnailImagePath)" width="100%" style="border-radius: 5px; border:1px solid #bbb9b9;" />
                         </div>
                     </div>
 

@@ -44,6 +44,20 @@ namespace Ecomst.Services
             return _modelState.IsValid;
         }
 
+        public bool ValidateProductOnUpdate(Product product, IFormFile? file)
+        {
+            if (_modelState == null)
+                throw new ArgumentNullException(nameof(_modelState));
+
+            if (file != null)
+            {
+                string ext = System.IO.Path.GetExtension(file.FileName);
+                if (ext != ".jpg")
+                    _modelState.AddError("", "Невалиден файл! Допускат се файлове с разширение .jpg!");
+            }
+            return _modelState.IsValid;
+        }
+
         public bool AddProduct(Product product, IFormFile? file) 
         {
             string fileName = "";
@@ -72,6 +86,44 @@ namespace Ecomst.Services
             {
                 if (!String.IsNullOrEmpty(fullPath))
                     Utils.DeleteFile(Path.Combine(wwwRootPath, filePath));
+                return false;
+            }
+        }
+
+        public bool UpdateProduct(Product product, IFormFile? file)
+        {
+            string fileName = "";
+            string filePath = "";
+            string oldPath = product.ThumbnailImagePath;
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string productIamgeDirectory = StaticData.GetProductImageDir();
+            string fullPath = Path.Combine(wwwRootPath, productIamgeDirectory);
+
+            try
+            {
+                if (!ValidateProductOnUpdate(product, file))
+                    return false;
+
+                if (file != null)
+                {
+                    fileName = Utils.SaveFormFile(file, fullPath);
+                    filePath = productIamgeDirectory + Path.DirectorySeparatorChar + fileName;
+                    product.ThumbnailImagePath = filePath;
+                }
+
+                bool isSaved = _repository.Update(product);
+                if (file != null && isSaved)
+                {
+                    Utils.DeleteFile(Path.Combine(wwwRootPath, oldPath));
+                }
+                else if (file != null && !isSaved)
+                {
+                    Utils.DeleteFile(Path.Combine(wwwRootPath, filePath));
+                }
+                return isSaved;
+            }
+            catch
+            {
                 return false;
             }
         }
