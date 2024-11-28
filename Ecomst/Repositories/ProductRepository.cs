@@ -15,6 +15,15 @@ namespace Ecomst.Repositories
             _context = context;
         }
 
+        public Product? FindById(int? id)
+        {
+            if (id == null || id == 0)
+                return null;
+
+            Product? product = _context.Products.Find(id);
+            return product;
+        }
+
         public bool Add(Product product)
         {
             try

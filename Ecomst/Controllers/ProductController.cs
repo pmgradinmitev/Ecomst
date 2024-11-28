@@ -64,9 +64,48 @@ namespace Ecomst.Controllers
             return View(viewModel);
         }
 
-        //public IActionResult Update(int id)
-        //{
-           
-        //}
+        public IActionResult Update(int id)
+        {
+            List<Category> categoryList = _categoryService.GetCategoryList();
+            Product? product = _productService.GetProductById(id);
+            if (product == null)
+            {
+                TempData["error"] = "Продукт с id " + id + " не беше намерен!";
+                return RedirectToAction("Index");
+            }
+
+            ProductViewModel viewModel = new ProductViewModel();
+            viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
+            viewModel.PopulateFromProduct(product);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(ProductViewModel viewModel, IFormFile? file)
+        {
+            _productService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
+
+            Product? product = _productService.GetProductById(viewModel.Id);
+            if (product == null)
+            {
+                TempData["error"] = "Продукт с id " + viewModel.Id + " не беше намерен!";
+                return RedirectToAction("Index");
+            }
+            viewModel.PopulateProduct(product);
+            if (_productService.UpdateProduct(product, file))
+            {
+                TempData["success"] = $"Продукт {product.Title} е актуализиран успешно!";
+                return RedirectToAction("Index");
+            }
+            else if (ModelState.IsValid)
+            {
+                TempData["error"] = "Продуктът не може да бъде актуализиран!";
+            }
+
+            List<Category> categoryList = _categoryService.GetCategoryList();
+            viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
+            return View(viewModel);
+        }
     }
 }

@@ -58,6 +58,11 @@ namespace Ecomst.Services
             return _modelState.IsValid;
         }
 
+        public Product? GetProductById(int? id)
+        {
+            return _repository.FindById(id);
+        }
+
         public bool AddProduct(Product product, IFormFile? file) 
         {
             string fileName = "";

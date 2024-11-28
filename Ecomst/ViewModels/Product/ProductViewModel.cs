@@ -41,5 +41,20 @@ namespace Ecomst.ViewModels.Product
             product.Price = (decimal) Price;
             product.InStock = InStock;
         }
+
+        public void PopulateFromProduct(Ecomst.Entities.Product product)
+        {
+            if (product == null)
+                return;
+
+            Id = product.Id;
+            Title = product.Title;
+            CategoryId = product.CategoryId;
+            CodeNumber = product.CodeNumber;
+            Description = product.Description;
+            Price = product.Price;
+            InStock = product.InStock;
+            ThumbnailImagePath = product.ThumbnailImagePath;
+        }
     }
 }
