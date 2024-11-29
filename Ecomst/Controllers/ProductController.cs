@@ -107,5 +107,20 @@ namespace Ecomst.Controllers
             viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
             return View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            if (_productService.DeleteProduct(id))
+            {
+                TempData["success"] = "Продуктът е изтрит успешно!";
+            }
+            else
+            {
+                TempData["error"] = "Продуктът не може да бъде изтрит!";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

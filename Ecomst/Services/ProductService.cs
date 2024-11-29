@@ -133,6 +133,29 @@ namespace Ecomst.Services
             }
         }
 
+        public bool DeleteProduct(int id)
+        {
+            try
+            {
+                Product? product = _repository.FindById(id);
+                if (product == null)
+                    return false;
+                
+                bool isDeleted = _repository.Delete(id);
+                if (isDeleted)
+                {
+                    string filePath = product.ThumbnailImagePath;
+                    string wwwRootPath = _webHostEnvironment.WebRootPath;
+                    Utils.DeleteFile(Path.Combine(wwwRootPath, filePath));
+                }
+                return isDeleted;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public SearchResult<Product> Search(ProductSearch searchModel, string sortColumn, int pageNumber, int length)
         {
             int start = (pageNumber - 1) * length;

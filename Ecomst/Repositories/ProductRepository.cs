@@ -52,6 +52,24 @@ namespace Ecomst.Repositories
             }
         }
 
+        public bool Delete(int id)
+        {
+            Product? product = FindById(id);
+            if (product == null)
+                return false;
+
+            try
+            {
+                _context.Products.Remove(product);
+                int stateNumber = _context.SaveChanges();
+                return stateNumber > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public SearchResult<Product> GetPageData(ProductSearch searchModel, string sortColumn, int start, int length)
         {
             IQueryable<Product> query = _context.Set<Product>();
