@@ -1,13 +1,14 @@
 ﻿using Ecomst.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Ecomst.Services.IServices;
-using Ecomst.ViewModels.Category;
 using Ecomst.Helpers;
 using System.Web;
 using Ecomst.DTO;
+using Ecomst.Areas.Admin.ViewModels.Category;
 
-namespace Ecomst.Controllers
+namespace Ecomst.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;
@@ -37,7 +38,7 @@ namespace Ecomst.Controllers
         public IActionResult Create(CategoryViewModel viewModel)
         {
             _categoryService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
-           
+
             Category category = new Category();
             viewModel.PopulateCategory(category);
             if (_categoryService.AddCategory(category))
@@ -49,7 +50,7 @@ namespace Ecomst.Controllers
             {
                 TempData["error"] = "Категорията не може да бъде създадена!";
             }
-            
+
             return View(viewModel);
         }
 
@@ -71,7 +72,7 @@ namespace Ecomst.Controllers
         public IActionResult Update(CategoryViewModel viewModel)
         {
             _categoryService.SetModelStateDictionary(new ModelStateWrapper(ModelState));
-           
+
             Category? category = _categoryService.GetCategoryById(viewModel.Id);
             if (category == null)
             {
@@ -88,7 +89,7 @@ namespace Ecomst.Controllers
             {
                 TempData["error"] = "Неуспешно редактиране на категория!";
             }
-            
+
             return View(viewModel);
         }
 

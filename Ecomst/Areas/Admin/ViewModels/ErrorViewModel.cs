@@ -1,4 +1,4 @@
-namespace Ecomst.ViewModels
+namespace Ecomst.Areas.Admin.ViewModels
 {
     public class ErrorViewModel
     {

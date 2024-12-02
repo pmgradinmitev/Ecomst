@@ -1,9 +1,10 @@
-using Ecomst.ViewModels;
+using Ecomst.Areas.Customer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Ecomst.Controllers
+namespace Ecomst.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

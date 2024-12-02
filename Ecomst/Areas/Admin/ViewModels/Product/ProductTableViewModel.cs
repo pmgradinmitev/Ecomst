@@ -3,12 +3,12 @@ using Ecomst.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 
-namespace Ecomst.ViewModels.Product
+namespace Ecomst.Areas.Admin.ViewModels.Product
 {
     public class ProductTableViewModel : BaseTableViewModel
     {
-        public List<Ecomst.Entities.Product> Data { get; set; }
-        public void PopulateFromSearchResult(SearchResult<Ecomst.Entities.Product> searchResult)
+        public List<Entities.Product> Data { get; set; }
+        public void PopulateFromSearchResult(SearchResult<Entities.Product> searchResult)
         {
             TotalPages = searchResult.TotalPages;
             RecordsTotal = searchResult.RecordsTotal;
@@ -18,7 +18,7 @@ namespace Ecomst.ViewModels.Product
         }
 
         public IEnumerable<SelectListItem> CategoryList { get; set; }
-        public IEnumerable<SelectListItem> InStockList { get; set; } = new []{
+        public IEnumerable<SelectListItem> InStockList { get; set; } = new[]{
             new SelectListItem{Value="0", Text="Не"},
             new SelectListItem{Value="1", Text="Да"},
         };

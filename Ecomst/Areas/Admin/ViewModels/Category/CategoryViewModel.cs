@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ecomst.ViewModels.Category
+namespace Ecomst.Areas.Admin.ViewModels.Category
 {
     public class CategoryViewModel
     {
@@ -13,15 +13,15 @@ namespace Ecomst.ViewModels.Category
         public string Name { get; set; }
         [Required(ErrorMessage = "Полето \"Ред на показване\" е задължително!")]
         [DisplayName("Ред на показване")]
-        public int DisplayOrder {  get; set; }
+        public int DisplayOrder { get; set; }
 
-        public void PopulateCategory(Ecomst.Entities.Category categoty)
+        public void PopulateCategory(Entities.Category categoty)
         {
             categoty.Name = Name;
             categoty.DisplayOrder = DisplayOrder;
         }
 
-        public void PopulateFromCategory(Ecomst.Entities.Category? category)
+        public void PopulateFromCategory(Entities.Category? category)
         {
             if (category == null)
                 return;

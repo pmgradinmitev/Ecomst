@@ -1,13 +1,14 @@
-﻿using Ecomst.DTO;
+﻿using Ecomst.Areas.Admin.ViewModels.Product;
+using Ecomst.DTO;
 using Ecomst.Entities;
 using Ecomst.Helpers;
 using Ecomst.Services.IServices;
-using Ecomst.ViewModels.Category;
-using Ecomst.ViewModels.Product;
+using Ecomst.Areas.Admin.ViewModels.Category;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ecomst.Controllers
+namespace Ecomst.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProductController : Controller
     {
         private IProductService _productService;
