@@ -1,0 +1,38 @@
+﻿@model ProductGalaryViewModel
+
+<style>
+    .card-hover-effect{
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover-effect:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .card-hover-effect:hover .card-footer > .btn-outline-secondary {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-2 mt-2">
+    @foreach (var item in Model.Data)
+    {
+        <div class="col">
+            <a asp-controller="Product" asp-action="View" style="color:#212529; text-decoration:none;">
+                <div class="card card-hover-effect h-100">
+                    <img src="@Url.Content("~/" + item.ThumbnailImagePath)" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@Utils.GetSubstringWithWords(item.Description, 10)...</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-secondary form-control">Виж повече</button>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>

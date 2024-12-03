@@ -34,5 +34,14 @@ namespace Ecomst.Helpers
             if (!String.IsNullOrEmpty(path) && System.IO.File.Exists(path))
                 System.IO.File.Delete(path);
         }
+
+        public static string GetSubstringWithWords(string text, int numberOfWords)
+        {
+            if (String.IsNullOrWhiteSpace(text) || numberOfWords <= 0)
+                return text;
+
+            var words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            return String.Join(' ', words.Take(numberOfWords).ToArray());
+        }
     }
 }
