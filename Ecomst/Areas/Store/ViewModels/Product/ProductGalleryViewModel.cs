@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace Ecomst.Areas.Store.ViewModels.Product
 {
-    public class ProductGalaryViewModel : BaseTableViewModel
+    public class ProductGalleryViewModel : BaseTableViewModel
     {
         public List<Entities.Product> Data { get; set; }
         public void PopulateFromSearchResult(SearchResult<Entities.Product> searchResult)

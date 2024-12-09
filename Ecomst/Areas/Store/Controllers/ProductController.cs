@@ -19,7 +19,7 @@ namespace Ecomst.Areas.Store.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult Index(ProductGalaryViewModel viewModel)
+        public IActionResult Index(ProductGalleryViewModel viewModel)
         {
             List<Category> categories = _categoryService.GetCategoriesInUseAsc();
             string defaultCategoryName = categories.First().Name;
