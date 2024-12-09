@@ -18,7 +18,6 @@ namespace Ecomst.Areas.Store.ViewModels.Product
         }
 
         public string? CategoryName { get; set; }
-        public int? InStock { get; set; }
         public List<Ecomst.Entities.Category> CategoryList { get; set; }
     }
 }

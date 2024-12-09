@@ -21,12 +21,10 @@ namespace Ecomst.Areas.Store.Controllers
 
         public IActionResult Index(ProductGalaryViewModel viewModel)
         {
-            int inStock = 1;
             List<Category> categories = _categoryService.GetCategoriesInUseAsc();
             string defaultCategoryName = categories.First().Name;
             ProductSearch searchModel = new ProductSearch();
 
-            searchModel.InStock = inStock;
             searchModel.CategoryName = String.IsNullOrEmpty(viewModel.CategoryName) ? defaultCategoryName : viewModel.CategoryName;
             SearchResult<Product> result = _productService.Search(searchModel, null, viewModel.PageNumber, viewModel.Length);
             viewModel.PopulateFromSearchResult(result);
