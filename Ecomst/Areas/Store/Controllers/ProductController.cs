@@ -1,13 +1,13 @@
-﻿using Ecomst.Areas.Customer.ViewModels.Product;
+﻿using Ecomst.Areas.Store.ViewModels.Product;
 using Ecomst.DTO;
 using Ecomst.Entities;
 using Ecomst.Helpers;
 using Ecomst.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ecomst.Areas.Customer.Controllers
+namespace Ecomst.Areas.Store.Controllers
 {
-    [Area("Customer")]
+    [Area("Store")]
     public class ProductController : Controller
     {
         private IProductService _productService;

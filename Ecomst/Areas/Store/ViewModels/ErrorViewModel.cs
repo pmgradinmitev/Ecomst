@@ -1,4 +1,4 @@
-namespace Ecomst.Areas.Customer.ViewModels
+namespace Ecomst.Areas.Store.ViewModels
 {
     public class ErrorViewModel
     {

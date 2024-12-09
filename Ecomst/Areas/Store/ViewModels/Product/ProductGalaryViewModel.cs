@@ -3,7 +3,7 @@ using Ecomst.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 
-namespace Ecomst.Areas.Customer.ViewModels.Product
+namespace Ecomst.Areas.Store.ViewModels.Product
 {
     public class ProductGalaryViewModel : BaseTableViewModel
     {

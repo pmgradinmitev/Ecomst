@@ -1,10 +1,10 @@
-using Ecomst.Areas.Customer.ViewModels;
+using Ecomst.Areas.Store.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Ecomst.Areas.Customer.Controllers
+namespace Ecomst.Areas.Store.Controllers
 {
-    [Area("Customer")]
+    [Area("Store")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
