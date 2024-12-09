@@ -28,7 +28,7 @@ namespace Ecomst.Areas.Store.Controllers
 
             searchModel.InStock = inStock;
             searchModel.CategoryName = String.IsNullOrEmpty(viewModel.CategoryName) ? defaultCategoryName : viewModel.CategoryName;
-            SearchResult<Product> result = _productService.Search(searchModel, viewModel.SortOrder, viewModel.PageNumber, viewModel.Length);
+            SearchResult<Product> result = _productService.Search(searchModel, null, viewModel.PageNumber, viewModel.Length);
             viewModel.PopulateFromSearchResult(result);
             viewModel.CategoryList = _categoryService.GetCategoriesInUseAsc();
             if(String.IsNullOrEmpty(viewModel.CategoryName))
