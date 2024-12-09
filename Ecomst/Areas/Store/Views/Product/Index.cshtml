@@ -6,7 +6,9 @@
         <div class="col">
             <a asp-controller="Product" asp-action="View" style="color:#212529; text-decoration:none;">
                 <div class="card card-hover-effect h-100">
-                    <img src="@Url.Content("~/" + item.ThumbnailImagePath)" class="card-img-top" alt="...">
+                    <div class="p-2">
+                        <img src="@Url.Content("~/" + item.ThumbnailImagePath)" class="card-img-top" alt="...">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">@item.Title</h5>
                         <p class="card-text">@Utils.GetSubstringWithWords(item.Description, 10)...</p>
