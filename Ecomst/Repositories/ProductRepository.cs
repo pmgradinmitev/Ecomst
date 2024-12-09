@@ -122,6 +122,8 @@ namespace Ecomst.Repositories
                 query = query.Where(s => s.Title!.ToUpper().Contains(searchModel.Title.ToUpper()));
             if (!String.IsNullOrEmpty(searchModel.Description))
                 query = query.Where(s => s.Description!.ToUpper().Contains(searchModel.Description.ToUpper()));
+            if (!String.IsNullOrEmpty(searchModel.CategoryName))
+                query = query.Where(s => s.Category.Name!.ToUpper() == searchModel.CategoryName.ToUpper());
             if (searchModel.InStock != null)
             {
                 bool flag = searchModel.InStock == 0 ? false : true;
