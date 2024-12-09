@@ -12,5 +12,6 @@ namespace Ecomst.Repositories.IRepositories
         public bool Delete(int id);
         public Category? FindByName(string? name);
         public SearchResult<Category> GetPageData(CategorySearch searchModel, string sortColumn, int start, int length);
+        public List<Category> GetCategoriesInUseAsc();
     }
 }

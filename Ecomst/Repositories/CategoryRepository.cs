@@ -131,5 +131,20 @@ namespace Ecomst.Repositories
                 query = query.Where(s => s.DisplayOrder == searchModel.DisplayOrder);
             return query;
         }
+
+        private IQueryable<Category> GetCategoriesInUseQuery()
+        {
+            var result = _context.Products.Select(s => s.CategoryId).Distinct().ToArray();
+            IQueryable<Category> query = _context.Set<Category>();
+            query = query.Where(s => result.Contains(s.Id));
+
+            return query;
+        }
+
+        public List<Category> GetCategoriesInUseAsc()
+        {
+            IQueryable<Category> query = GetCategoriesInUseQuery();
+            return query.OrderBy(s => s.DisplayOrder).ToList();
+        }
     }
 }

@@ -100,5 +100,10 @@ namespace Ecomst.Services
             result.TotalPages = totalPages;
             return result;
         }
+
+        public List<Category> GetCategoriesInUseAsc()
+        {
+            return _repository.GetCategoriesInUseAsc();
+        }
     }
 }

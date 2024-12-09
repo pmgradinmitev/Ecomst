@@ -13,5 +13,6 @@ namespace Ecomst.Services.IServices
         public bool DeleteCategory(int id);
         public void SetModelStateDictionary(IValidationDictionary modelState);
         public SearchResult<Category> Search(CategorySearch searchModel, string sortColumn, int start, int length);
+        public List<Category> GetCategoriesInUseAsc();
     }
 }

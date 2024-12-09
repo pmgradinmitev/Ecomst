@@ -1,6 +1,18 @@
 ﻿@model ProductGalaryViewModel
 
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-2 mt-2">
+<div class="row mx-0">
+    <ul class="nav nav-tabs">
+        @foreach (var item in Model.CategoryList)
+        {
+            string active = !String.IsNullOrEmpty(Model.CategoryName) && Model.CategoryName.ToUpper() == item.Name.ToUpper() ? "active" : "";
+            <li class="nav-item">
+                <a asp-controller="Product" asp-action="Index" asp-route-CategoryName="@item.Name" class="nav-link @active">@item.Name</a>
+            </li>
+        } 
+    </ul>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-2 mt-3">
     @foreach (var item in Model.Data)
     {
         <div class="col">
