@@ -15,7 +15,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>(); //identity ++
+builder.Services.AddDefaultIdentity<ApplicationUser>().AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>(); //identity ++
 builder.Services.AddRazorPages(); //identity, use razor pages
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -30,6 +30,8 @@ using (var scope = app.Services.CreateScope())
 
     SeedCategoryData.Initialize(services);
     SeedProductData.Initialize(services);
+    SeedRoleData.Initialize(services);
+    SeedUserData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.
