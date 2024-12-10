@@ -22,15 +22,13 @@ namespace Ecomst.Areas.Store.Controllers
         public IActionResult Index(ProductGalleryViewModel viewModel)
         {
             List<Category> categories = _categoryService.GetCategoriesInUseAsc();
-            string defaultCategoryName = categories.First().Name;
+            string? defaultCategoryName = categories.Count() > 0 ? categories.First().Name : null;
             ProductSearch searchModel = new ProductSearch();
-
-            searchModel.CategoryName = String.IsNullOrEmpty(viewModel.CategoryName) ? defaultCategoryName : viewModel.CategoryName;
+            searchModel.CategoryName = viewModel.CategoryName ?? defaultCategoryName;
             SearchResult<Product> result = _productService.Search(searchModel, null, viewModel.PageNumber, viewModel.Length);
             viewModel.PopulateFromSearchResult(result);
             viewModel.CategoryList = _categoryService.GetCategoriesInUseAsc();
-            if(String.IsNullOrEmpty(viewModel.CategoryName))
-                viewModel.CategoryName = defaultCategoryName;
+            viewModel.CategoryName = viewModel.CategoryName ?? defaultCategoryName;
             return View(viewModel);
         }
     }
