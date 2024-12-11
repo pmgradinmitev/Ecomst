@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Ecomst.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/toastr.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/area/store/product/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -22,11 +23,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Category" asp-action="Index">Категории</a>
+                            <a class="nav-link text-dark" asp-area="Store" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Продукти</a>
-                        </li>      
+                            <a class="nav-link text-dark" asp-area="Store" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
                     </ul>
                     <partial name="~/Views/Shared/_LoginPartial.cshtml" />
                 </div>
