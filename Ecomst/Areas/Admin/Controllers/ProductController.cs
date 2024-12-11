@@ -5,10 +5,12 @@ using Ecomst.Helpers;
 using Ecomst.Services.IServices;
 using Ecomst.Areas.Admin.ViewModels.Category;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecomst.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = StaticData.Role_Admin)]
     public class ProductController : Controller
     {
         private IProductService _productService;
