@@ -39,5 +39,7 @@ namespace Ecomst.Data
         public DbSet<Category> Categories { get; set; } //Category is the entity and Categories is the table in the database
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+
     }
 }

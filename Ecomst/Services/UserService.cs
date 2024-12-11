@@ -8,16 +8,18 @@ using Ecomst.DTO;
 
 namespace Ecomst.Services
 {
-    public class CustomerService : ICustomerService
+    public class UserService : IUserService
     {
         private IUserRepository _repository;
+        private IRoleRepository _roleRepository;
 
-        public CustomerService(IUserRepository repository)
+        public UserService(IUserRepository repository, IRoleRepository roleRepository)
         {
             _repository = repository;
+            _roleRepository = roleRepository;
         }
 
-        public SearchResult<ApplicationUser> Search(ApplicationUserSearch searchModel, string sortColumn, int pageNumber, int length)
+        public SearchResult<ApplicationUser> UserSearch(ApplicationUserSearch searchModel, string sortColumn, int pageNumber, int length)
         {
             int start = (pageNumber - 1) * length;
             SearchResult<ApplicationUser> result = _repository.GetPageData(searchModel, sortColumn, start, length);
@@ -27,6 +29,11 @@ namespace Ecomst.Services
             result.Start = start;
             result.TotalPages = totalPages;
             return result;
+        }
+
+        public List<ApplicationRole> GetUserRolesList()
+        {
+            return _roleRepository.GetRoles();
         }
     }
 }

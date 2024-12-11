@@ -39,6 +39,10 @@ namespace Ecomst.Repositories
         {
             switch (value)
             {
+                case "-role":
+                    return query.OrderByDescending(s => s.UserRoles.Any() ? s.UserRoles.FirstOrDefault().Role.Name : string.Empty);
+                case "role":
+                    return query.OrderBy(s => s.UserRoles.Any() ? s.UserRoles.FirstOrDefault().Role.Name : string.Empty );
                 case "-userName":
                     return query.OrderByDescending(s => s.UserName);
                 default:
@@ -53,9 +57,11 @@ namespace Ecomst.Repositories
 
         private IQueryable<ApplicationUser> Search(ApplicationUserSearch searchModel, IQueryable<ApplicationUser> query)
         {
-            //if (!String.IsNullOrEmpty(searchModel.CodeNumber))
-            //    query = query.Where(s => s.CodeNumber!.ToUpper().Contains(searchModel.CodeNumber.ToUpper()));
-            
+            if (!String.IsNullOrEmpty(searchModel.UserName))
+                query = query.Where(s => s.UserName!.ToUpper().Contains(searchModel.UserName.ToUpper()));
+            if (!String.IsNullOrEmpty(searchModel.UserRole))
+                query = query.Where(s => s.UserRoles.FirstOrDefault().RoleId == searchModel.UserRole);
+
             return query;
         }
     }

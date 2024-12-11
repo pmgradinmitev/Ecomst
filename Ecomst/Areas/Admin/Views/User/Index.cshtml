@@ -1,8 +1,8 @@
-﻿@model CustomerTableViewModel;
+﻿@model UserTableViewModel;
 
 <div class="row">
     <div class="col-12">
-        <h1>Списък с клиенти</h1>
+        <h1>Списък с потребители</h1>
     </div>
 </div>
 <div class="row">
@@ -11,7 +11,7 @@
         <div class="card mt-5 border-primary shadow-sm">
             <div class="card-header bg-primary bg-gradient text-white d-flex justify-content-between">
                 <div>
-                    <i class="bi bi-list"></i>Клиенти
+                    <i class="bi bi-list"></i>Потребители
                 </div>
                 <div>
                     @{
@@ -31,7 +31,8 @@
                                 <th>
                                     <a asp-action="Index"
                                        asp-route-SortOrder="@(Model.SortOrder == "userName" ? "-userName" : "userName")"
-                                       asp-route-Name="@(Model.UserName)">
+                                       asp-route-UserName="@(Model.UserName)"
+                                       asp-route-UserRole="@(Model.UserRole)">
 
                                         @Html.DisplayNameFor(model => model.UserName)
                                         @if (Model.SortOrder == "userName")
@@ -45,7 +46,21 @@
                                     </a>
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.UserRole)
+                                    <a asp-action="Index"
+                                       asp-route-SortOrder="@(Model.SortOrder == "role" ? "-role" : "role")"
+                                       asp-route-UserName="@(Model.UserName)"
+                                       asp-route-UserRole="@(Model.UserRole)">
+
+                                        @Html.DisplayNameFor(model => model.UserRole)
+                                        @if (Model.SortOrder == "role")
+                                        {
+                                            <i class="bi bi-sort-up"></i>
+                                        }
+                                        @if (Model.SortOrder == "-role")
+                                        {
+                                            <i class="bi bi-sort-down"></i>
+                                        }
+                                    </a>
                                 </th>
                                 <th style="width: 75px;"></th>
                             </tr>
@@ -54,7 +69,7 @@
                                 <th>
                                     <div class="d-flex flex-row justify-content-center">
                                         <input type="text" asp-for="UserName" form="id-search-form" class="form-control mx-1">
-                                        <a asp-controller="Customer"
+                                        <a asp-controller="User"
                                            asp-action="Index"
                                            asp-route-UserRole="@(Model.UserRole)"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
@@ -62,15 +77,17 @@
                                 </th>
                                 <th>
                                     <div class="d-flex flex-row justify-content-center">
-                                        <input type="text" asp-for="UserRole" form="id-search-form" class="form-control mx-1">
-                                        <a asp-controller="Customer"
+                                        <select asp-for="UserRole" asp-items="Model.UserRoleList" form="id-search-form" class="form-control mx-1">
+                                            <option disabled selected>--Избери роля--</option>
+                                        </select>
+                                        <a asp-controller="User"
                                            asp-action="Index"
                                            asp-route-UserName="@(Model.UserName)"
                                            class="btn btn-light" tabindex="-1"><i class="bi bi-x"></i></a>
                                     </div>
                                 </th>
                                 <th>
-                                    <form id="id-search-form" asp-controller="Customer" asp-action="Index" method="get">
+                                    <form id="id-search-form" asp-controller="User" asp-action="Index" method="get">
                                         <button type="submit" class="btn btn-primary">Търси</button>
                                     </form>
                                 </th>

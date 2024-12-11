@@ -3,9 +3,9 @@ using Ecomst.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 
-namespace Ecomst.Areas.Admin.ViewModels.Customer
+namespace Ecomst.Areas.Admin.ViewModels.User
 {
-    public class CustomerTableViewModel : BaseTableViewModel
+    public class UserTableViewModel : BaseTableViewModel
     {
         public List<Entities.ApplicationUser> Data { get; set; }
         public void PopulateFromSearchResult(SearchResult<Entities.ApplicationUser> searchResult)
@@ -22,5 +22,7 @@ namespace Ecomst.Areas.Admin.ViewModels.Customer
         public string? UserName { get; set; }
         [DisplayName("Роля")]
         public string? UserRole { get; set; }
+
+        public IEnumerable<SelectListItem> UserRoleList { get; set; }
     }
 }
