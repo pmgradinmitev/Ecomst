@@ -13,10 +13,6 @@ namespace Ecomst.Seeds
             {
                 roleManager.CreateAsync(new ApplicationRole(StaticData.Role_Customer)).GetAwaiter().GetResult();
             }
-            if (!roleManager.RoleExistsAsync(StaticData.Role_Employee).GetAwaiter().GetResult())
-            {
-                roleManager.CreateAsync(new ApplicationRole(StaticData.Role_Employee)).GetAwaiter().GetResult();
-            }
             if (!roleManager.RoleExistsAsync(StaticData.Role_Admin).GetAwaiter().GetResult())
             {
                 roleManager.CreateAsync(new ApplicationRole(StaticData.Role_Admin)).GetAwaiter().GetResult();
