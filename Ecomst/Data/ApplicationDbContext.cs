@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecomst.Data
 {
+    //https://learn.microsoft.com/en-us/aspnet/core/security/authentication/customize-identity-model?view=aspnetcore-8.0
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string,
         IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>,
         IdentityRoleClaim<string>, IdentityUserToken<string>>

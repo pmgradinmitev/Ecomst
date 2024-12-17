@@ -5,10 +5,12 @@ using Ecomst.Helpers;
 using System.Web;
 using Ecomst.DTO;
 using Ecomst.Areas.Admin.ViewModels.Category;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecomst.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = StaticData.Role_Admin)]
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;

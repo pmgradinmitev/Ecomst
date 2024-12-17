@@ -6,6 +6,7 @@ using Ecomst.Services;
 using Microsoft.EntityFrameworkCore;
 using Ecomst.Seeds;
 using Microsoft.AspNetCore.Identity;
+using Ecomst.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();//++
+builder.Services.AddDefaultIdentity<ApplicationUser>()
+    .AddRoles<ApplicationRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();//++
 builder.Services.AddRazorPages();//++
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -29,6 +32,8 @@ using (var scope = app.Services.CreateScope())
 
     SeedCategoryData.Initialize(services);
     SeedProductData.Initialize(services);
+    SeedRoleData.Initialize(services);
+    SeedUserData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.
