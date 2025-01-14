@@ -16,7 +16,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>().AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>(); //identity ++
-builder.Services.AddRazorPages(); //identity, use razor pages
+builder.Services.AddRazorPages();
+//builder.Services.AddRazorPages().AddRazorPagesOptions(options => {
+//    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
+//});
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
