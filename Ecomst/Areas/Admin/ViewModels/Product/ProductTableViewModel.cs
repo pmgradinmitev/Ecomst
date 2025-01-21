@@ -1,4 +1,5 @@
 ﻿using Ecomst.DTO;
+using Ecomst.Enums;
 using Ecomst.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
@@ -17,7 +18,8 @@ namespace Ecomst.Areas.Admin.ViewModels.Product
             Data = searchResult.Data;
         }
 
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        //public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public Categories CategoryList { get; set; }
         public IEnumerable<SelectListItem> InStockList { get; set; } = new[]{
             new SelectListItem{Value="0", Text="Не"},
             new SelectListItem{Value="1", Text="Да"},

@@ -1,4 +1,5 @@
-﻿@model ProductTableViewModel;
+﻿@using Ecomst.Enums
+@model ProductTableViewModel;
 
 <div class="row">
     <div class="col-12">
@@ -158,7 +159,7 @@
                                 </th>
                                 <th>
                                     <div class="d-flex flex-row justify-content-center">
-                                        <select asp-for="CategoryId" asp-items="Model.CategoryList" form="id-search-form" class="form-control mx-1">
+                                        <select asp-for="CategoryId" asp-items="Html.GetEnumSelectList<Categories>()" form="id-search-form" class="form-control mx-1">
                                             <option disabled selected>--Избери категория--</option>
                                         </select>
                                         <a asp-controller="Product"
@@ -203,7 +204,7 @@
                                             <span style="color: rgba(var(--bs-danger-rgb));"><i class="bi bi-x-circle"></i></span>
                                         }
                                     </td>
-                                    <td class="text-center">@obj.Category.Name</td>
+                                    <td class="text-center"> @Utils.GetEnumDisplayName((Categories)obj.CategoryId) </td>
                                     <td class="text-center">
                                         <div class="d-flex flex-row justify-content-center">
                                             <a asp-controller="Product" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">

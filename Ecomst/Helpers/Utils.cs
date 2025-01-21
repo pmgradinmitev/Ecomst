@@ -1,5 +1,6 @@
 ﻿using Ecomst.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Ecomst.Helpers
@@ -42,6 +43,14 @@ namespace Ecomst.Helpers
 
             var words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             return String.Join(' ', words.Take(numberOfWords).ToArray());
+        }
+
+
+        public static string GetEnumDisplayName(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = (DisplayAttribute)Attribute.GetCustomAttribute(field, typeof(DisplayAttribute));
+            return attribute?.Name ?? value.ToString();
         }
     }
 }

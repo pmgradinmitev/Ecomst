@@ -73,7 +73,7 @@ namespace Ecomst.Repositories
         public SearchResult<Product> GetPageData(ProductSearch searchModel, string sortColumn, int start, int length)
         {
             IQueryable<Product> query = _context.Set<Product>();
-            query.Include("Category");
+            query = query.Include("Category");
             int recordsTotal = query.Count();
 
             query = Search(searchModel, query);
