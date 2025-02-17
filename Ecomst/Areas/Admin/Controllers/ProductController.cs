@@ -32,8 +32,8 @@ namespace Ecomst.Areas.Admin.Controllers
             searchModel.InStock = viewModel.InStock;
             SearchResult<Product> result = _productService.Search(searchModel, viewModel.SortOrder, viewModel.PageNumber, viewModel.Length);
             viewModel.PopulateFromSearchResult(result);
-            //List<Category> categoryList = _categoryService.GetCategoryList();
-            //viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
+            List<Category> categoryList = _categoryService.GetCategoryList();
+            viewModel.CategoryList = Utils.ListToSelectListItem(categoryList, "Name", "Id");
             return View(viewModel);
         }
 

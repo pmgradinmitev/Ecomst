@@ -31,5 +31,10 @@ namespace Ecomst.Areas.Admin.Controllers
             viewModel.UserRoleList = Utils.ListToSelectListItem(_userService.GetUserRolesList(), "Name", "Id"); ;
             return View(viewModel);
         }
+
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
     }
 }

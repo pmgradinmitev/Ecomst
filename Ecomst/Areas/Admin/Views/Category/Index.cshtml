@@ -108,7 +108,7 @@
                                     <td>@obj.DisplayOrder</td>
                                     <td class="text-center">
                                         <div class="d-flex flex-row justify-content-center">
-                                            <a asp-controller="Category" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">
+                                            <a target="_parent"  asp-controller="Category" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                             <form method="post" action="@Url.Action("Delete", "Category")" onsubmit="return confirm('Наистина ли искате да изтриете категория: @obj.Name?');">
